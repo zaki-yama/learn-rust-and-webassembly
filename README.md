@@ -4,11 +4,17 @@
 ## キーワード
 - 式指向言語
 
-### [3.1 変数と可変性 - The Rust Programming Language](https://doc.rust-jp.rs/book/second-edition/ch03-01-variables-and-mutability.html)
+### [3.1 変数と可変性](https://doc.rust-jp.rs/book/second-edition/ch03-01-variables-and-mutability.html)
 - 変数 (`let`) はデフォルトでimmutable。mutableにしたいときは `mut` をつける
 - シャドーイング
+  - 一度宣言した変数を同名で上書きできる
 
-### [3.2 データ型 - The Rust Programming Language](https://doc.rust-jp.rs/book/second-edition/ch03-02-data-types.html)
+```rust
+let spaces = "    ";
+let spaces = spaces.len();
+```
+
+### [3.2 データ型](https://doc.rust-jp.rs/book/second-edition/ch03-02-data-types.html)
 - スカラー型
   - 整数型
     - `i8` (符号つき) と `u8` (符号なし)、とかはよくある話
@@ -19,7 +25,7 @@
   - タプル型
   - 配列型
 
-### [3.3 関数の動作法 - The Rust Programming Language](https://doc.rust-jp.rs/book/second-edition/ch03-03-how-functions-work.html)
+### [3.3 関数の動作法](https://doc.rust-jp.rs/book/second-edition/ch03-03-how-functions-work.html)
 - 式と文：式は `;` がつかない
 
 ```rust
