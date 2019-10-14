@@ -27,6 +27,7 @@ let spaces = spaces.len();
 
 ### [3.3 関数の動作法](https://doc.rust-jp.rs/book/second-edition/ch03-03-how-functions-work.html)
 - 式と文：式は `;` がつかない
+- 式は値を返すので、関数の最終行が `;` なしの場合、それが戻り値となる
 
 ```rust
 fn main() {
@@ -95,4 +96,50 @@ fn gives_ownership() -> String {
 
     some_string  // 呼び出し元関数にsome_stringがムーブされる
 }
+```
+
+### [4.2 参照と借用](https://doc.rust-jp.rs/book/second-edition/ch04-02-references-and-borrowing.html)
+
+- デフォルトで、関数の引数に渡した値はムーブしてしまうので、呼び出し後もその値を使いたい場合はタプルなどで引数自体も返す必要がある
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+
+    let (s2, len) = calculate_length(s1);
+
+    // ここではもうs1は参照できない
+    println!("The length of {} is {}", s2, len);
+}
+```
+
+- 代わりに、引数としてオブジェクトへの **参照** を渡すことができる
+  - 関数の引数に参照を取ることを **借用** と呼ぶ
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+
+    let len = calculate_length(&s1);
+
+    println!("The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+```
+
+![](images/trpl04-05.svg)
+
+- 借用した参照を変更するには変数宣言および参照を渡している箇所に`mut`をつける
+  - 特定のスコープで、ある特定のデータに対しては、一つしか可変な参照を持てない
+- 可変な参照と不変な参照を組み合わせることはできない
+
+```rust
+let s = String::from("hello");
+
+let r1 = &s;
+let r2 = &s; // ok
+let r3 = &mut s;  // error
 ```
