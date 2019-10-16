@@ -149,4 +149,30 @@ let r3 = &mut s;  // error
 - 文字列の何バイト目から何バイト目への参照、を文字列スライスという
   - `&hoge[0..5]` のようにする
   - 型は`&str`で表す
-- 単純な
+
+### [5.1 構造体を定義し、インスタンス化する](https://doc.rust-jp.rs/book/second-edition/ch05-01-defining-structs.html)
+
+- TypeScriptの`type`のイメージ
+
+```rust
+struct User {
+  username: String,
+  email: String,
+  sign_in_count: u64,
+  active: bool,
+}
+```
+
+- `{ email: email }`を`{ email }`と省略できるあたりはJSと同じ
+- 可変の場合`mut`つけるのは同じ。一部のフィールドのみ可変にすることはできない
+- 構造体更新記法: `..obj1`とすると他のインスタンスからインスタンスを生成できる
+
+```rust
+let user2 = User {
+  email: String::from("another@example.com"),
+  username: ... ,
+  ..user1
+};
+
+- タプル構造体：フィールド名がなく、タプルに似た構造体
+  - 例： `struct Color(i32, i32, i32);`
