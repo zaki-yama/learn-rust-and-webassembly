@@ -143,3 +143,10 @@ let r1 = &s;
 let r2 = &s; // ok
 let r3 = &mut s;  // error
 ```
+
+### [4.3 スライス型](https://doc.rust-jp.rs/book/second-edition/ch04-03-slices.html)
+
+- 文字列の何バイト目から何バイト目への参照、を文字列スライスという
+  - `&hoge[0..5]` のようにする
+  - 型は`&str`で表す
+- 単純な
