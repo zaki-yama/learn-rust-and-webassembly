@@ -173,6 +173,38 @@ let user2 = User {
   username: ... ,
   ..user1
 };
+```
 
 - タプル構造体：フィールド名がなく、タプルに似た構造体
   - 例： `struct Color(i32, i32, i32);`
+
+
+### [5.3 メソッド記法](https://doc.rust-jp.rs/book/second-edition/ch05-03-method-syntax.html)
+
+```rust
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+
+    fn can_hold(&self, another: &Rectangle) -> bool {
+        self.width > another.width && self.height > another.height
+    }
+
+    // 関連関数
+    fn square(size: u32) -> Rectangle {
+        Rectangle { width: size, height: size }
+    }
+}
+```
+
+- 構造体を定義したあと、`impl`内でメソッドを定義する
+- メソッドの第一引数が必ず`self`なのはPythonぽい
+  - が、所有権の考え方はここでも同様
+- **関連関数**：`self`を引数に取らない、staticメソッド的なもの
+  - `Rectangle::square(30)`のように`::`で呼び出す
