@@ -3,6 +3,8 @@
 
 ## キーワード
 - 式指向言語
+- crate
+- trait
 
 ### [3.1 変数と可変性](https://doc.rust-jp.rs/book/second-edition/ch03-01-variables-and-mutability.html)
 - 変数 (`let`) はデフォルトでimmutable。mutableにしたいときは `mut` をつける
@@ -223,3 +225,13 @@ impl Rectangle {
 - 親 -> 子を参照することは基本できないが、子 -> 親はたどれる
 - 構造体は`struct`に`pub`をつけても内部のフィールドはprivateのまま
 - enumは`pub enum`とすれば全変数にアクセス可能
+
+### [7.4 Bringing Paths into Scope with the `use` Keyword](https://doc.rust-lang.org/book/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html)
+
+- `use foo::bar::baz` と書くと `foo::bar::baz::hoge()` が `baz::hoge()` と書ける
+- `use foo:bar::baz::hoge` とせず `::baz` までにしておき、使うときに親のモジュールまで記述する(`baz::hoge()`)方が良しとされる
+  - 理由は、ローカルで定義された関数と見分けがつかないため
+- 一方、structの場合はフルパス指定で`use`する方がベター
+  - 強い理由はない。慣例的に
+  - 複数のモジュールで名前がバッティングしない限り
+- JSのモジュールシステムみたく`as 別名`も使える
