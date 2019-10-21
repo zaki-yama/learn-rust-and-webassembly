@@ -208,3 +208,11 @@ impl Rectangle {
   - が、所有権の考え方はここでも同様
 - **関連関数**：`self`を引数に取らない、staticメソッド的なもの
   - `Rectangle::square(30)`のように`::`で呼び出す
+
+
+### [7.1 Packages and Crates](https://doc.rust-lang.org/book/ch07-01-packages-and-crates.html)
+
+- package: 1つまたは複数のクレートから成る。 `Cargo.toml`を含む
+- crate
+
+### [7.2 Defining Modules to Control Scope and Privacy](https://doc.rust-lang.org/book/ch07-02-defining-modules-to-control-scope-and-privacy.html)
