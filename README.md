@@ -216,3 +216,10 @@ impl Rectangle {
 - crate
 
 ### [7.2 Defining Modules to Control Scope and Privacy](https://doc.rust-lang.org/book/ch07-02-defining-modules-to-control-scope-and-privacy.html)
+
+### [7.3 Paths for Referring to an Item in the Module Tree](https://doc.rust-lang.org/book/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html)
+
+- デフォルトはすべてprivate
+- 親 -> 子を参照することは基本できないが、子 -> 親はたどれる
+- 構造体は`struct`に`pub`をつけても内部のフィールドはprivateのまま
+- enumは`pub enum`とすれば全変数にアクセス可能
