@@ -235,3 +235,5 @@ impl Rectangle {
   - 強い理由はない。慣例的に
   - 複数のモジュールで名前がバッティングしない限り
 - JSのモジュールシステムみたく`as 別名`も使える
+
+### [7.5 Separating Modules into Different Files](https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html)
