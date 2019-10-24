@@ -237,3 +237,21 @@ impl Rectangle {
 - JSのモジュールシステムみたく`as 別名`も使える
 
 ### [7.5 Separating Modules into Different Files](https://doc.rust-lang.org/book/ch07-05-separating-modules-into-different-files.html)
+
+### [8.1 Storing Lists of Values with Vectors](https://doc.rust-lang.org/book/ch08-01-vectors.html)
+
+- Vector: 同じデータ型の複数の値を格納するためのデータ型
+- メモリ的にも近い位置に格納される
+- 初期化は初期値を与える方法とそうでない方法がある
+
+```rust
+// 初期値がなく、ジェネリクスで型を指定する
+let v: Vec<i32> = Vec::new();
+
+// 初期値から推論する。vec!というマクロを使う
+let v = vec![1, 2, 3];
+
+// 初期値がない場合も、pushする値から推論される
+let mut v = Vec::new();
+v.push(5);
+```
