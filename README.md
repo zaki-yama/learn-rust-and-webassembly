@@ -255,3 +255,41 @@ let v = vec![1, 2, 3];
 let mut v = Vec::new();
 v.push(5);
 ```
+
+### [10.2 Traits: Defining Shared Behavior](https://doc.rust-lang.org/book/ch10-02-traits.html)
+- interfaceのようなもの
+
+```rust
+pub trait Summary {
+    fn summarize(&self) -> String;
+}
+```
+
+で定義し、
+
+```rust
+pub struct NewsArticle {
+    pub headline: String,
+    pub location: String,
+    pub author: String,
+    pub content: String,
+}
+
+impl Summary for NewsArticle {
+    fn summarize(&self) -> String {
+        format!("{}, by {} ({})", self.headline, self.author, self.location)
+    }
+}
+```
+
+のように使う。`impl <trait> for <traitを継承するstruct>` となる。
+
+interfaceのようにシグネチャだけ定義することもできるし、デフォルトの実装を定義することもできる
+
+```rust
+pub trait Summary {
+  fn summarize(&self) -> String {
+    String::from("(Read more...)")
+  }
+}
+```
