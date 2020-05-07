@@ -132,7 +132,7 @@ fn calculate_length(s: &String) -> usize {
 }
 ```
 
-![](images/trpl04-05.svg)
+![](\_images/trpl04-05.svg)
 
 - 借用した参照を変更するには変数宣言および参照を渡している箇所に`mut`をつける
   - 特定のスコープで、ある特定のデータに対しては、一つしか可変な参照を持てない
