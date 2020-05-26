@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "ch02/rpn"
+		},
+		{
+			"path": "ch02"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "ch03/bitonic-sorter"
+		}
+	]
+}
