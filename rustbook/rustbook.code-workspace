@@ -14,6 +14,9 @@
 		},
 		{
 			"path": "ch03/multi-thread"
+		},
+		{
+			"path": "ch04/scalar-types"
 		}
 	]
 }
