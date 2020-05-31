@@ -35,4 +35,31 @@ fn main() {
     // 200 * 3 = 600 だが u8 の最大値は256
     // 計算結果は600を256で割った余りの88になる
     assert_eq!(200u8.wrapping_mul(3u8), 88);
+
+    // --- 4-2-6 参照
+    let mut n = 0;
+    println!("main:     n = {}", n);
+
+    f1(n);
+    println!("main:     n = {}", n);
+
+    // `&mut n`でnの値を指す可変のポインタを作成する
+    f2(&mut n);
+    println!("main:     n = {}", n);
+}
+
+// 関数f1は呼び出し元の値のコピーを引数nに束縛し、1に変更する
+fn f1(mut n: u32) {
+    n = 1;
+    println!("f1:       n = {}", n);
+}
+
+// 関数f2は呼び出し元の値を指すポインタを受け取り、
+// ポインタが指す場所に2を格納する
+fn f2(n_ptr: &mut u32) {
+    println!("f2        n_ptr = {:p}", n_ptr);
+
+    // *をつけると参照先にアクセスできる。これを参照外し(dereference)と呼ぶ
+    *n_ptr = 2;
+    println!("f2:       *n_ptr = {}", *n_ptr);
 }
