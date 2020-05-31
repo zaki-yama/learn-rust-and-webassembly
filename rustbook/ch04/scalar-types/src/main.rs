@@ -46,6 +46,22 @@ fn main() {
     // `&mut n`でnの値を指す可変のポインタを作成する
     f2(&mut n);
     println!("main:     n = {}", n);
+
+    // --- 4-2-7 生ポインタ
+    let c1 = 'A';
+    let c1_ptr: *const char = &c1;
+    // 生ポインタの参照外しはunsafeな操作
+    assert_eq!(unsafe { *c1_ptr }, 'A');
+
+    let mut n1 = 0;
+    let n1_ptr: *mut i32 = &mut n1;
+    assert_eq!(unsafe { *n1_ptr }, 0);
+
+    // 可変の生ポインタでは参照先の値を変更できる
+    unsafe {
+        *n1_ptr = 1_000;
+        assert_eq!(*n1_ptr, 1_000);
+    }
 }
 
 // 関数f1は呼び出し元の値のコピーを引数nに束縛し、1に変更する

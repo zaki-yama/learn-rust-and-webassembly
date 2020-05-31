@@ -5,3 +5,8 @@
   - https://gihyo.jp/book/2019/978-4-297-10559-4/support
 - サンプルプログラム
   - https://github.com/ghmagazine/rustbook
+
+
+### 疑問
+
+- 4-2-7 生ポインタ　は「メモリ安全でない」とはどういうこと？
