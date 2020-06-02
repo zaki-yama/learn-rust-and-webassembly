@@ -17,6 +17,9 @@
 		},
 		{
 			"path": "ch04/scalar-types"
+		},
+		{
+			"path": "ch04/compound-types"
 		}
 	]
 }
