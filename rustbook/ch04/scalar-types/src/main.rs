@@ -62,6 +62,22 @@ fn main() {
         *n1_ptr = 1_000;
         assert_eq!(*n1_ptr, 1_000);
     }
+
+    // --- 4-2-8 関数ポインタ
+    // 変数に型注釈として関数ポインタ型を指定することで、関数名から関数ポインタを得られる
+    let mut f: fn(i32) -> i32 = double;
+    assert_eq!(f(-42), -84);
+
+    f = abs;
+    assert_eq!(f(-42), 42);
+
+    // 関数ポインタのサイズはusizeと同じ
+    assert_eq!(std::mem::size_of_val(&f), std::mem::size_of::<usize>());
+
+    // 変数に型注釈を付けないと関数定義型だと推論される
+    let mut f_bad = double;
+    // 関数定義型は関数ごとに異なる型になるので、変数f_badに別の関数定義型を束縛できない
+    // f_bad = abs;
 }
 
 // 関数f1は呼び出し元の値のコピーを引数nに束縛し、1に変更する
@@ -78,4 +94,16 @@ fn f2(n_ptr: &mut u32) {
     // *をつけると参照先にアクセスできる。これを参照外し(dereference)と呼ぶ
     *n_ptr = 2;
     println!("f2:       *n_ptr = {}", *n_ptr);
+}
+
+fn double(n: i32) -> i32 {
+    n + n
+}
+
+fn abs(n: i32) -> i32 {
+    if n >= 0 {
+        n
+    } else {
+        -n
+    }
 }
