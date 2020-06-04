@@ -128,6 +128,43 @@ fn main() {
     assert!(s3.contains(&"two"));
     assert!(s3.starts_with(&["one", "two"]));
     assert!(s3.ends_with(&["two", "three"]));
+
+    // --- 4-3-4 文字列スライス
+    let s1 = "abc1"; // &'static str型
+    let s2 = "abc2";
+    assert!(s1 < s2);
+    assert!(s1 != s2);
+
+    let fruits = "あかりんご, あおりんご\nラズベリー, ブラックベリー";
+    // lines()メソッドは改行コード(\n)を含む文字列から1行ずつ
+    // 取り出せるイテレータを作る
+    let mut lines = fruits.lines();
+    // イテレータのnext()メソッドで次の行を得る
+    let apple_line = lines.next();
+    assert_eq!(apple_line, Some("あかりんご, あおりんご"));
+    assert_eq!(lines.next(), Some("ラズベリー, ブラックベリー"));
+    // 次の行がないならNoneが返る
+    assert_eq!(lines.next(), None);
+
+    // りんごの行(Some(..))の中身を取り出す
+    if let Some(apples) = apple_line {
+        assert!(apples.starts_with("あか"));
+        assert!(apples.contains("りんご"));
+        // 「あお」が出現する位置はUTF-8表現で何バイト目か
+        assert_eq!(apples.find("あお"), Some(17));
+    } else {
+        unreachable!();
+    }
+
+    let s = "かか\u{3099}く"; // \u{3099}は濁点文字
+    println!("{}", s);
+
+    let mut iter = s.chars(); // char型のイテレータ
+    assert_eq!(iter.next(), Some('か'));
+    assert_eq!(iter.next(), Some('か'));
+    assert_eq!(iter.next(), Some('\u{3099}'));
+    assert_eq!(iter.next(), Some('く'));
+    assert_eq!(iter.next(), None);
 }
 
 // &[char]型のスライスを引数に取り、その情報を表示する
