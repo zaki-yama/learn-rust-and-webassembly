@@ -20,6 +20,9 @@
 		},
 		{
 			"path": "ch04/compound-types"
+		},
+		{
+			"path": "ch05/std-lib"
 		}
 	]
 }
