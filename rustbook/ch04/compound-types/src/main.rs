@@ -80,4 +80,64 @@ fn main() {
     for ch in array4.iter() {
         print!("{},", *ch);
     }
+    println!();
+
+    // --- 4-3-3 スライス
+    let a1 = ['a', 'b', 'c', 'd'];
+    println!("a1: {:?}", a1);
+
+    print_info("&a1[..]", &a1[..]); // 全要素のスライス
+    print_info("&a1", &a1); // 同上
+    print_info("&a1[1..3]", &a1[1..3]);
+
+    // ベクタ
+    let v1 = vec!['e', 'f', 'g', 'h'];
+    println!("\nv1: {:?}", v1);
+
+    print_info("&v1[..]", &v1[..]);
+    print_info("&v1", &v1);
+    print_info("&v1[1..3]", &v1[1..3]);
+
+    // ミュータブルなスライス
+    let mut a1 = [5, 4, 3, 2];
+    let s1 = &mut a1[1..3];
+    s1[0] = 6;
+    s1[1] *= 10;
+    s1.swap(0, 1);
+    assert_eq!(s1, [30, 6]);
+
+    assert_eq!(a1, [5, 30, 6, 2]); // スライスを通じて配列の内容が変更された
+
+    let a2: [i32; 0] = [];
+    let s2 = &a2;
+    assert!(s2.is_empty());
+    assert_eq!(s2.len(), 0);
+    assert_eq!(s2.first(), None);
+
+    let a3 = ["zero", "one", "two", "three", "four"];
+    let s3 = &a3[1..4];
+    assert!(!s3.is_empty());
+    assert_eq!(s3.len(), 3);
+    assert_eq!(s3.first(), Some(&"one"));
+
+    assert_eq!(s3[1], "two");
+    // assert_eq!(s3[3], "?"); // panic
+    assert_eq!(s3.get(1), Some(&"two"));
+    assert_eq!(s3.get(3), None);
+
+    assert!(s3.contains(&"two"));
+    assert!(s3.starts_with(&["one", "two"]));
+    assert!(s3.ends_with(&["two", "three"]));
+}
+
+// &[char]型のスライスを引数に取り、その情報を表示する
+fn print_info(name: &str, sl: &[char]) {
+    println!(
+        "  {:9} - {}, {:?}, {:?}, {:?}",
+        name,
+        sl.len(),   // 長さ(バイト数) usize
+        sl.first(), // Option<char>
+        sl[1],      // char
+        sl.last()   // Option<char>
+    );
 }
