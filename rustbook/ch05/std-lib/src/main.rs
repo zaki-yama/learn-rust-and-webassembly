@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 fn main() {
     // --- 5-2-1 Box(std::boxed::Box<T>)
     let t1 = (3, "birds".to_string()); // (i32, String)型のタプル。スタックに置かれる
@@ -28,4 +30,18 @@ fn main() {
     v6.insert(1, 'f');
     assert_eq!(v6.remove(2), 'b');
     assert_eq!(v6, ['a', 'f', 'c', 'd']);
+
+    // --- 5-2-3 その他のコレクション型
+    let mut m1 = HashMap::new();
+
+    m1.insert("a", 1);
+    m1.insert("b", 3);
+    assert_eq!(m1.len(), 2);
+
+    assert_eq!(m1.get("b"), Some(&3));
+    assert_eq!(m1.get("c"), None);
+
+    let d = m1.entry("d").or_insert(0);
+    *d += 7;
+    assert_eq!(m1.get("d"), Some(&7));
 }
