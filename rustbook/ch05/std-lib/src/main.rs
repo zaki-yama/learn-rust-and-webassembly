@@ -174,6 +174,17 @@ fn main() {
     eat(cordon_bleu, Day::Monday);
     eat(steak, Day::Tuesday);
     eat(sushi, Day::Wednesday);
+
+    // --- 5-2-7 リザルト
+    assert_eq!("10".parse::<i32>(), Ok(10)); // 変換できたらOK(値)が返される
+    let res0 = "a".parse::<i32>(); // 変換できなかったら`Err(エラーを表す値)`が返される
+    assert!(res0.is_err());
+    println!("{:?}", res0);
+
+    assert_eq!(add0("3", "127"), Ok(3 + 127));
+    assert!(add0("3", "abc").is_err());
+
+    assert_eq!(add1("3", "abc"), Err("s1が整数ではありません".to_string()));
 }
 
 // 間違った戻り値の型
@@ -256,4 +267,17 @@ fn eat(food: Food, day: Day) {
         Some(food) => println!("Yay! On {:?} we get to eat {:?}.", day, food),
         None => println!("Oh no. We don't get to eat on {:?}?", day),
     }
+}
+
+// 複数のResult値を扱うときは?演算子が便利
+fn add0(s0: &str, s1: &str) -> Result<i32, std::num::ParseIntError> {
+    let s0 = s0.parse::<i32>()?;
+    let s1 = s1.parse::<i32>()?;
+    Ok(s0 + s1)
+}
+
+fn add1(s0: &str, s1: &str) -> Result<i32, String> {
+    let s0 = s0.parse::<i32>().map_err(|_e| "s0が整数ではありません")?;
+    let s1 = s1.parse::<i32>().map_err(|_e| "s0が整数ではありません")?;
+    Ok(s0 + s1)
 }
