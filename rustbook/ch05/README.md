@@ -58,3 +58,19 @@
 5-2-5 範囲(std::ops::Range)
 
 - `start..end`, `..=end` とかのこと
+
+
+5-2-6 オプション(std::option::Option<T>)
+
+- 値があるかどうか分からないことを表す型
+- **nullを用いる言語だと、関数の戻り値からはnullを返す可能性があるのか判断できない**
+- Some(T型の値) と None の2つのバリアントを持つ
+- パターンマッチ(`match x { Some(value) => ... }`)や `if let Some(value) = x` で値を取り出せる
+- `unwrap()`で取り出すとNoneのときpanicになるので、`unwrap_or_else(クロージャ)`など使うのがおすすめ
+- アンラップせずに中の値を加工するためのメソッドとして、`map()`や`and_then()`のようなコンビネータ・メソッドがある
+  - `map()`は加工した値をSome()で包み直す
+  - `and_then()`は加工した値をそのまま返す
+  - `Option<T>`を返す関数に対しての`map()`はSomeをネストしてしまうので、`and_then()`がベター
+  - ref. https://doc.rust-jp.rs/rust-by-example-ja/error/option_unwrap/and_then.html
+    - (`and_then()`は) "他の言語ではflatmapと呼ばれることもあります"
+- ?演算子: Some(値)なら値を取り出し、NoneならNoneを返してこの関数からすぐにリターンする

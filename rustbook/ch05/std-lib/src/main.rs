@@ -115,6 +115,65 @@ fn main() {
     assert_eq!(1.., std::ops::RangeFrom { start: 1 });
     assert_eq!(1..3, std::ops::Range { start: 1, end: 3 });
     assert_eq!(1..=3, std::ops::RangeInclusive::new(1, 3));
+
+    // --- 5-2-6 オプション
+    let a1 = ['a', 'b', 'c', 'd'];
+    assert_eq!(a1.get(0), Some(&'a'));
+    assert_eq!(a1.get(4), None);
+
+    let mut o1 = Some(10);
+    match o1 {
+        Some(s) => assert_eq!(s, 10), // パターンマッチで中の値を取り出す
+        None => unreachable!(),
+    }
+
+    o1 = Some(20);
+    if let Some(s) = o1 {
+        // if let式でもバリアントの判別と値の取り出しができる
+        assert_eq!(s, 20);
+    }
+
+    let mut o2 = Some(String::from("Hello")); // Option<String>
+    assert_eq!(o2.unwrap(), "Hello");
+
+    // unwrap()はNoneのときにpanicするので、できるだけ使わない方がいい
+    o2 = None;
+    // o2.unwrap(); // panicked
+
+    // unwrap_or_else()ならNoneでもpanicしないので安心して使える
+    // Noneのときはクロージャを実行し、Noneの代わりになる値を得る
+    assert_eq!(
+        o2.unwrap_or_else(|| String::from("o2 is none")),
+        "o2 is none"
+    );
+
+    // Someで包まれた値を操作するならmap()やand_then()などのコンビネータが便利
+
+    // map()はSome(値)のときは値にクロージャを適用し、クロージャが返した値をSomeで包み直す
+    let mut o3 = Some(25);
+    assert_eq!(o3.map(|n| n * 10), Some(250));
+
+    // NoneならなにもせずNoneを返す
+    o3 = None;
+    assert_eq!(o3.map(|n| n * 10), None);
+
+    o3 = Some(10);
+    assert_eq!(
+        o3.map(|n| n * 10)
+            // and_then()はSome(値)のときは値にクロージャを適用し
+            // クロージャが返した値(Some(新しい値), またはNone)をそのまま返す
+            .and_then(|n| if n >= 200 { Some(n) } else { None }),
+        None
+    );
+
+    assert_eq!(add_elems(&[3, 7, 31, 127]), Some(3 + 127));
+    assert_eq!(add_elems(&[7, 11]), None);
+
+    let (cordon_bleu, steak, sushi) = (Food::CordonBleu, Food::Steak, Food::Sushi);
+
+    eat(cordon_bleu, Day::Monday);
+    eat(steak, Day::Tuesday);
+    eat(sushi, Day::Wednesday);
 }
 
 // 間違った戻り値の型
@@ -128,4 +187,73 @@ fn main() {
 // 正しい戻り値の型
 fn f1(name: &str) -> String {
     format!("Hello, {}!", name)
+}
+
+// Option
+fn add_elems(s: &[i32]) -> Option<i32> {
+    // 複数のOption値を扱うときは?演算子が便利
+    // Some(値)なら値を取り出し、Noneならこの関数からすぐに戻る(Noneを返す)
+    let s0 = s.get(0)?;
+    let s3 = s.get(3)?;
+    Some(s0 + s3)
+}
+
+// and_then()の補足
+// ref. https://doc.rust-jp.rs/rust-by-example-ja/error/option_unwrap/and_then.html
+#[derive(Debug)]
+enum Food {
+    CordonBleu,
+    Steak,
+    Sushi,
+}
+#[derive(Debug)]
+enum Day {
+    Monday,
+    Tuesday,
+    Wednesday,
+}
+
+// 我々は寿司の材料を持っていない
+fn have_ingredients(food: Food) -> Option<Food> {
+    match food {
+        Food::Sushi => None,
+        _ => Some(food),
+    }
+}
+
+// コルドン・ブルー(Cordon Bleu)のレシピも持っていない。
+fn have_recipe(food: Food) -> Option<Food> {
+    match food {
+        Food::CordonBleu => None,
+        _ => Some(food),
+    }
+}
+
+// 料理を作るためには、材料とレシピの両方が必要。
+// ロジックの流れを`match`のチェインで表す。
+fn cookable_v1(food: Food) -> Option<Food> {
+    match have_recipe(food) {
+        None => None,
+        Some(food) => match have_ingredients(food) {
+            None => None,
+            Some(food) => Some(food),
+        },
+    }
+}
+
+// `and_then()`を用いることで、同じことをよりコンパクトに表現できる。
+fn cookable_v2(food: Food) -> Option<Food> {
+    have_recipe(food).and_then(have_ingredients)
+}
+
+// mapで書く場合、ネストするとOptionがネストする
+fn cookable_v1_1(food: Food) -> Option<Option<Food>> {
+    have_recipe(food).map(|food| have_ingredients(food))
+}
+
+fn eat(food: Food, day: Day) {
+    match cookable_v2(food) {
+        Some(food) => println!("Yay! On {:?} we get to eat {:?}.", day, food),
+        None => println!("Oh no. We don't get to eat on {:?}?", day),
+    }
 }
