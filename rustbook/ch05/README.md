@@ -105,3 +105,19 @@ fn new_user(id: Id, created: Timestamp) -> User {
 let id = 100;
 let now = 4567890123;
 new_user(now, id); // OK
+```
+
+5-3-2 構造体(struct)
+
+- 種類
+  - 名前付きフィールド構造体: objectみたいなやつ
+  - タプル構造体: `struct Vertex(i32, i32)`
+  - ユニット構造体: 値を持たない
+- 名前付きフィールド構造体
+  - `Polygon { .. <既存のPolygonインスタンス> }` とすると既存の値をコピーして新しいインスタンスを生成できる
+    - 関数型レコードアップデート構文(functional record update syntax)と呼ぶ
+  - デフォルト値をもたせたい場合はDefaultトレイトを実装する
+    - `#[derive(Default)]` をつけるか、`impl Default for Polygon` ブロックを自分で書く
+- タプル構造体
+  - newtype: 型エイリアスの代わりにフィールドが1つのタプル構造体を使うデザインパターン
+  - 別の型を渡すとコンパイルエラー
