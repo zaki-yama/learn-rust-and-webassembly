@@ -56,6 +56,46 @@ fn new_polygon(vertexes: Vec<(i32, i32)>) -> Polygon {
     }
 }
 
+// --- 5-3-3 列挙型(enum)
+// 平日を表すWeekday型を定義する
+#[derive(Debug, PartialEq)]
+enum Weekday {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday,
+}
+
+fn say_something(weekday: Weekday) {
+    if weekday == Weekday::Friday {
+        println!("TGIF!");
+    } else {
+        println!("まだ{:?}か", weekday);
+    }
+}
+
+enum Month {
+    January = 1,
+    February = 2,
+    March = 3,
+    December = 12,
+}
+
+// バリアントには構造体と同じ文法でフィールドを持たせられる
+#[derive(Debug)]
+enum Task {
+    Open,
+    AssignedTo(UserName),
+    Working {
+        assignee: UserName,
+        remaining_hours: u16,
+    },
+    Done,
+}
+
+use crate::Task::*;
+
 fn main() {
     // --- 5-3-1 型エイリアス
     let id = 400;
@@ -106,4 +146,37 @@ fn main() {
     let triangle = Triangle(vx0, vx1, Vertex(2, 2));
 
     assert_eq!((triangle.1).0, 3);
+
+    // --- 5-3-3 列挙型(enum)
+    say_something(Weekday::Wednesday);
+    say_something(Weekday::Friday);
+
+    assert_eq!(3, Month::March as isize);
+
+    let tasks = vec![
+        AssignedTo(String::from("junko")),
+        Working {
+            assignee: String::from("hiro"),
+            remaining_hours: 18,
+        },
+        Done,
+    ];
+
+    for (i, task) in tasks.iter().enumerate() {
+        match task {
+            AssignedTo(assignee) => {
+                println!("タスク{}は{}さんにアサインされています", i, assignee);
+            }
+            Working {
+                assignee,
+                remaining_hours,
+            } => {
+                println!(
+                    "タスク{}は{}さんが作業中です。残り{}時間の見込み",
+                    i, assignee, remaining_hours
+                );
+            }
+            _ => println!("タスク{}はその他のステータス{:?}です", i, task),
+        }
+    }
 }
