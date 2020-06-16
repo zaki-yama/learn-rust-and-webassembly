@@ -19,6 +19,9 @@ fn main() {
     println!("Circle1's diameter: {}", circle1.diameter());
     let circle1 = Circle::small_circle();
     println!("Circle1's diameter: {}", circle1.diameter());
+
+    let some_point = Point { x: 10, y: 20, z: 0 };
+    println!("Debug: {:?}", some_point);
 }
 
 fn is_leap_year(year: u32) -> bool {
@@ -38,4 +41,20 @@ impl Circle {
     fn small_circle() -> Circle {
         Circle { radius: 1 }
     }
+}
+
+// --- 6-11 アトリビュート
+// cfgアトリビュート: 条件によってコンパイルするかどうかを決めることができる
+#[cfg(unix)]
+fn somthing_for_unix() {}
+
+#[cfg(windows)]
+fn somthing_for_windows() {}
+
+// deriveアトリビュート: 対応したトレイトの実装を、自動的に構造体や列挙型に実装してもらえる
+#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+    z: i32,
 }
