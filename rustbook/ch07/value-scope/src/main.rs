@@ -1,8 +1,20 @@
 #[derive(Debug)]
 struct Parent(usize, Child, Child);
 
+impl Drop for Parent {
+    fn drop(&mut self) {
+        println!("Dropping {:?}", self);
+    }
+}
+
 #[derive(Debug)]
 struct Child(usize);
+
+impl Drop for Child {
+    fn drop(&mut self) {
+        println!("Dropping {:?}", self);
+    }
+}
 
 fn main() {
     let p1 = Parent(1, Child(11), Child(12));
