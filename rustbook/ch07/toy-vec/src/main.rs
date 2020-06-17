@@ -25,6 +25,14 @@ impl<T: Default> ToyVec<T> {
             .collect::<Vec<_>>() // Vec<T>に収集してから
             .into_boxed_slice() // Box<[T]>に変換する
     }
+
+    pub fn len(&self) -> usize {
+        self.len()
+    }
+
+    pub fn capacity(&self) -> usize {
+        self.elements.len()
+    }
 }
 
 fn main() {
