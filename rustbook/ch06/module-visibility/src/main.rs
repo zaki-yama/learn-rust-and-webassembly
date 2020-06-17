@@ -11,15 +11,8 @@ mod client {
     }
 }
 
-// randは外部のクレートなので、これは絶対指定
-// randクレートのpreludeモジュールの中のすべてのアイテムを使う
-use rand::prelude::*;
+mod network;
 
-mod network {
-    pub fn ping() {
-        println!("Ping");
-    }
-}
 fn main() {
     server::echo();
     client::echo();
