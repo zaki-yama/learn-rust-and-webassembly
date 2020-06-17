@@ -18,13 +18,18 @@ impl Drop for Child {
     }
 }
 
+fn f1(p: &Parent) {
+    println!("p: {:?}", p);
+}
+
+fn f2(p: &mut Parent) {
+    p.0 *= 2;
+}
+
 fn main() {
     let mut p1 = Parent(1, Child(11), Child(12));
-    let p2 = p1; // 値の所有権をp1からp2にムーブする
-    println!("p2: {:?}", p2);
-    // println!("p1: {:?}", p1); // error
+    f1(&p1);
+    f2(&mut p1);
 
-    p1 = Parent(2, Child(21), Child(22));
-    // p1は別の値の所有権を持つためアクセスできる
     println!("p1: {:?}", p1);
 }
