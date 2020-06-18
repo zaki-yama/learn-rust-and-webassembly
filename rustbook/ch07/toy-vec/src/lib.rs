@@ -57,7 +57,3 @@ impl<T: Default> ToyVec<T> {
         // 既存の全要素を新しいBox<[T]>にムーブしたあと、古いBox<[T]>を破棄する
     }
 }
-
-fn main() {
-    println!("Hello, world!");
-}
