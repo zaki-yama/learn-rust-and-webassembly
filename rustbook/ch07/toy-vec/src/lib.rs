@@ -5,6 +5,11 @@ pub struct ToyVec<T> {
     len: usize,
 }
 
+#[allow(
+    clippy::len_without_is_empty,
+    clippy::new_without_default,
+    unconditional_recursion
+)]
 impl<T: Default> ToyVec<T> {
     // newはキャパシティ(容量)が0のToyVecを作る
     pub fn new() -> Self {
