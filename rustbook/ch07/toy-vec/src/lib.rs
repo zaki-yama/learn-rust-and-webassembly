@@ -55,6 +55,15 @@ impl<T: Default> ToyVec<T> {
         }
     }
 
+    pub fn get_or<'a>(&'a self, index: usize, default: &'a T) -> &'a T {
+        match self.get(index) {
+            Some(v) => v,
+            None => default,
+        }
+        // 上の式はunwrap_orコンビネータで書き換えられる
+        // self.get(index).unwrap_or(default)
+    }
+
     fn grow(&mut self) {
         // TODO
         // - self.capacityが0のときは、allocate_in_heap(1)で長さ1のBox<[T]>を作成しself.elementsにセット

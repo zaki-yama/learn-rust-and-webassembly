@@ -63,3 +63,21 @@
   2. その型自身とすべてのフィールドの型がデストラクタ(Dropトレイト)を実装していない
     - ヒープ領域を使用するデータ型Box<T>, Vec<T>, Stringなどデストラクタを持つ
   3. その型自身がCloneトレイトを実装している
+
+### 7-9
+
+7-9-6 ライフタイムの省略
+
+```rust
+pub fn get_or(&self, index: usize, default: &T) -> &T
+```
+
+は
+
+```rust
+pub fn get_or<'a, 'b>(&'a self, index: usize, default: &'b T) -> &'a T
+```
+
+と推論される。
+
+- ライフタイム指定子は `'a` のようにシングルクォートから始まる識別子で示す
