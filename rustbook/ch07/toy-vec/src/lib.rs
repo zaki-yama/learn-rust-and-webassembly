@@ -64,6 +64,17 @@ impl<T: Default> ToyVec<T> {
         // self.get(index).unwrap_or(default)
     }
 
+    // 戻り値が参照でないことに注目。所有権ごと返す
+    pub fn pop(&mut self) -> Option<T> {
+        if self.len == 0 {
+            None
+        } else {
+            self.len -= 1;
+            let elem = std::mem::replace(&mut self.elements[self.len], Default::default());
+            Some(elem)
+        }
+    }
+
     fn grow(&mut self) {
         // TODO
         // - self.capacityが0のときは、allocate_in_heap(1)で長さ1のBox<[T]>を作成しself.elementsにセット
