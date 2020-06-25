@@ -76,9 +76,17 @@ impl<T: Default> ToyVec<T> {
     }
 
     fn grow(&mut self) {
-        // TODO
-        // - self.capacityが0のときは、allocate_in_heap(1)で長さ1のBox<[T]>を作成しself.elementsにセット
-        // - self.capacityが1以上のときは、allocate_in_heap(self.capacity() * 2)で現在の2倍の長さのBox<[T]>を作成しself.elementsにセット
-        // 既存の全要素を新しいBox<[T]>にムーブしたあと、古いBox<[T]>を破棄する
+        if self.capacity() == 0 {
+            self.elements = Self::allocate_in_heap(1);
+        } else {
+            let new_elements = Self::allocate_in_heap(self.capacity() * 2);
+            let old_elements = std::mem::replace(&mut self.elements, new_elements);
+
+            // 既存の全要素を新しい領域へムーブする
+            // Vec<T>のinto_iter(self)なら要素の所有権が得られる
+            for (i, elem) in old_elements.into_vec().into_iter().enumerate() {
+                self.elements[i] = elem;
+            }
+        }
     }
 }
