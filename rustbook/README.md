@@ -9,6 +9,9 @@
 
 ### 疑問
 
+- ✅ベクタをforループで回すとき。 `iter()` と `into_iter()` とは？
+  - 7-9-10 イテレータと所有権
+- structとimplとtrait
 - 4-2-7 生ポインタ　は「メモリ安全でない」とはどういうこと？
 - 4-2-8 関数定義型(fn item type)とは？「関数定義型は関数ごとに異なる型になる」とは？
 - 4-3-4 文字列スライス(str), char, Stringの関係性
@@ -19,3 +22,7 @@
 - [p272] ファットポインタ
 - [p279] 可変の借用(&mut)経由では値の所有権を一方的に奪うことはできませんが、所有権を交換する、つまり別の値と交換するのならできるのです
   - `str::mem::replace`
+- 参照、借用、ムーブらへんの用語
+  - 値の参照を得ることを借用と呼ぶ (p263)
+  - "関数の引数に参照を取ることを借用と呼びます"
+    - [参照と借用 - The Rust Programming Language](https://doc.rust-jp.rs/book/second-edition/ch04-02-references-and-borrowing.html)
