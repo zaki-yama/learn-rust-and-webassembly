@@ -55,6 +55,11 @@ impl Coordinates for (f64, f64) {
   }
 }
 
+fn print_point(point: impl Coordinates) {
+  let p = point.to_cartesian();
+  println!("({}, {})", p.x, p.y);
+}
+
 fn main() {
   let point = (1.0, 1.0);
 
@@ -63,4 +68,8 @@ fn main() {
 
   let p = PolarCoord::from_cartesian(c);
   println!("r = {}, θ = {}", p.r, p.theta);
+
+  print_point((0.0, 1.0));
+  print_point(p);
+  // print_point("string"); // error
 }
