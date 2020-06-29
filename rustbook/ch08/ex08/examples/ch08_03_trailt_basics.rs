@@ -1,4 +1,5 @@
 // デカルト座標
+#[derive(Debug, Clone, PartialEq, PartialOrd, Default)]
 struct CartesianCoord {
   x: f64,
   y: f64,
