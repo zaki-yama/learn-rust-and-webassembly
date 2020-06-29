@@ -63,17 +63,49 @@ fn print_point(point: impl Coordinates) {
 struct Matrix([[f64; 2]; 2]);
 
 trait LinearTransform: Coordinates {
-  fn transform(self, matrix: &Matrix) -> Self;
+  fn transform(self, matrix: &Matrix) -> Self
+  where
+    Self: Sized,
+  {
+    // 継承したCoordinatesのメソッドto_cartesianが使える
+    let mut cart = self.to_cartesian();
+    let x = cart.x;
+    let y = cart.y;
+    let m = matrix.0;
+
+    cart.x = m[0][0] * x + m[0][1] * y;
+    cart.y = m[1][0] * x + m[1][1] * y;
+    Self::from_cartesian(cart)
+  }
+
+  fn rotate(self, theta: f64) -> Self
+  where
+    Self: Sized,
+  {
+    self.transform(&Matrix([
+      [theta.cos(), -theta.sin()],
+      [theta.sin(), theta.cos()],
+    ]))
+  }
 }
 
 impl LinearTransform for CartesianCoord {
-  fn transform(mut self, matrix: &Matrix) -> Self {
-    let x = self.x;
-    let y = self.y;
-    let m = matrix.0;
+  // fn transform(mut self, matrix: &Matrix) -> Self {
+  //   let x = self.x;
+  //   let y = self.y;
+  //   let m = matrix.0;
 
-    self.x = m[0][0] * x + m[0][1] * y;
-    self.y = m[1][0] * x + m[1][1] * y;
+  //   self.x = m[0][0] * x + m[0][1] * y;
+  //   self.y = m[1][0] * x + m[1][1] * y;
+  //   self
+  // }
+}
+
+impl LinearTransform for PolarCoord {
+  // fn transform(self, matrix: &Matrix) -> Self {}
+
+  fn rotate(mut self, theta: f64) -> Self {
+    self.theta += theta;
     self
   }
 }
@@ -90,4 +122,7 @@ fn main() {
   print_point((0.0, 1.0));
   print_point(p);
   // print_point("string"); // error
+
+  let p = (1.0, 0.0).to_cartesian();
+  print_point(p.rotate(std::f64::consts::PI));
 }
