@@ -53,3 +53,17 @@ impl<T> Init<T> for Box<T> {
   - 動的ディスパッチのメリット・デメリットはこれの逆
 - Rustで動的ディスパッチはトレイとオブジェクトで実現されており、`dyn Trait` という記法で表す
 - トレイトオブジェクトを使うと、メソッドの実行はトレイトオブジェクトに格納されている関数ポインタ経由なので実行時に多少のコストがかかる
+
+### 8-4 存在impl Trait
+
+- 関数の戻り値型に書くimpl Trait
+- 引数位置impl Traitは全称impl Traitと呼ばれる
+- 戻り値位置impl Traitは存在型を表す存在impl Trait
+
+```rust
+fn to_n(n: i32) -> impl Iterator {
+  0..n
+}
+```
+
+↑「戻り値は `Iterator` を実装した何かしらの型である」と抽象化している
