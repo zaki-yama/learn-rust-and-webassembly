@@ -26,3 +26,12 @@
   - 値の参照を得ることを借用と呼ぶ (p263)
   - "関数の引数に参照を取ることを借用と呼びます"
     - [参照と借用 - The Rust Programming Language](https://doc.rust-jp.rs/book/second-edition/ch04-02-references-and-borrowing.html)
+- クレート、トレイト、パッケージ
+
+
+### 用語
+
+- `#[derive(Debug)]`: 自動導出
+  - 8-1-7
+  - 構造体にこのアノテーションをつけると、いくつかの標準ライブラリのトレイトを自動で実装できる
+  - 導出可能なのは `Clone、Copy、Debug、Default、Eq、Hash、Ord、PartialEq、 PartialOrd`
