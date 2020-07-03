@@ -67,3 +67,22 @@ fn to_n(n: i32) -> impl Iterator {
 ```
 
 ↑「戻り値は `Iterator` を実装した何かしらの型である」と抽象化している
+
+### 8-5 トレイトとアイテム
+
+- 関連関数、関連定数はデータ型(?)にもある機能
+- 関連型はトレイトにしかない機能
+
+```rust
+// 関連型
+trait Server {
+  // type 型名で関連型を宣言できる
+  type Response;
+
+  // あるいはtype 型名:トレイト境界 で境界を設定することもできる
+  type Request: FromStr;
+
+  // 関連型にはSelf::型名でアクセスする
+  fn handle(&self, req: Self::Request) -> Self::Response;
+}
+```
