@@ -35,3 +35,7 @@
   - 8-1-7
   - 構造体にこのアノテーションをつけると、いくつかの標準ライブラリのトレイトを自動で実装できる
   - 導出可能なのは `Clone、Copy、Debug、Default、Eq、Hash、Ord、PartialEq、 PartialOrd`
+- `?` 演算子
+  - `Option<T>` や `Result<T, E>` を返す関数に対して使用する
+  - 結果が `Some(値)` や `Ok(値)` ならアンラップし、 `None` や `Err(E)` なら早期リターンする
+- コンビネータ・メソッド: `map()` や `and_then()`
