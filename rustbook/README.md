@@ -27,6 +27,7 @@
   - "関数の引数に参照を取ることを借用と呼びます"
     - [参照と借用 - The Rust Programming Language](https://doc.rust-jp.rs/book/second-edition/ch04-02-references-and-borrowing.html)
 - クレート、トレイト、パッケージ
+- `use` って一番上にまとめたほうがいいんじゃないの？
 
 
 ### 用語
