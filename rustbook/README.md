@@ -27,6 +27,7 @@
   - "関数の引数に参照を取ることを借用と呼びます"
     - [参照と借用 - The Rust Programming Language](https://doc.rust-jp.rs/book/second-edition/ch04-02-references-and-borrowing.html)
 - クレート、トレイト、パッケージ
+- `use` って一番上にまとめたほうがいいんじゃないの？
 
 
 ### 用語
@@ -35,3 +36,8 @@
   - 8-1-7
   - 構造体にこのアノテーションをつけると、いくつかの標準ライブラリのトレイトを自動で実装できる
   - 導出可能なのは `Clone、Copy、Debug、Default、Eq、Hash、Ord、PartialEq、 PartialOrd`
+- `?` 演算子
+  - `Option<T>` や `Result<T, E>` を返す関数に対して使用する
+  - 結果が `Some(値)` や `Ok(値)` ならアンラップし、 `None` や `Err(E)` なら早期リターンする
+- コンビネータ・メソッド: `map()` や `and_then()`
+  - p375 に詳しい解説
