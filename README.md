@@ -39,6 +39,6 @@ Rust学習用リポジトリ
 
 ### 書籍
 
-- [実践Rust入門[言語仕様から開発手法まで]](https://www.amazon.co.jp/exec/obidos/ASIN/4297105594/zakiyama08-22/) (2019/5/8)
+- ✅ [実践Rust入門[言語仕様から開発手法まで]](https://www.amazon.co.jp/exec/obidos/ASIN/4297105594/zakiyama08-22/) (2019/5/8)
 - [プログラミング言語Rust入門](https://www.amazon.co.jp/exec/obidos/ASIN/B087BZQ48R/zakiyama08-22/) (2020/3/25)
 - [Rustで始めるネットワークプログラミング](https://www.amazon.co.jp/exec/obidos/ASIN/B07SW2GXVF/zakiyama08-22/)
