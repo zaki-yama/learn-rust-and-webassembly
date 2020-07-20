@@ -22,3 +22,40 @@
 
 - Hyperを使わずアクターフレームワークの上に作られている
 - アクター: 非同期にメッセージをやりとりする存在。独立性が高い
+
+11-2-2
+
+- 構成要素
+  - HttpServer
+  - App
+  - ハンドラ
+  - エクストラクタ
+  - ミドルウェア
+
+ハンドラ
+
+```rust
+pub trait Handler<S>:L 'static {
+  type Result: Responder;
+  fn handle(&self, req: &HttpRequest<S>) -> Self::Result;
+}
+```
+
+Responder
+
+```rust
+pub trait Responder {
+  type Item: Into<AsyncResult<HttpResponse>>;
+  type Error: Into<Error>;
+  fn respond_to<S: 'static>(
+    self,
+    req: &HttpRequest<S>
+  ) -> Result<Self::Item, Self::Error>;
+}
+```
+
+おおざっぱな流れ
+
+- ハンドラを呼ぶ。ハンドラの戻り値はString
+- ReponderがStringを受け取ってHttpResponseを作る (repond_to)
+- Into を使って非同期の結果として扱う
