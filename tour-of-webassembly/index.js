@@ -1,8 +1,14 @@
 async function run() {
   let response = await fetch('../main.wasm');
   let bytes = await response.arrayBuffer();
-  let module = await WebAssembly.instantiate(bytes);
-  let num = module.instance.exports.add(1,1);
+  let module = await WebAssembly.instantiate(bytes, {
+    env: {
+      get_magic_number() {
+        return 42;
+      }
+    }
+  });
+  let num = module.instance.exports.main();
   document.getElementById("container").textContent = num;
 }
 
