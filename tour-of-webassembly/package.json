@@ -1,0 +1,15 @@
+{
+  "name": "tour-of-webassembly",
+  "version": "1.0.0",
+  "description": "Tour of WebAssembly ===================",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  }
+}
