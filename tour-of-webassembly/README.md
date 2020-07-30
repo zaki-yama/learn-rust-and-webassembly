@@ -1,6 +1,8 @@
 Tour of WebAssembly
 ===================
 
+https://tourofrust.com/webassembly/00_ja.html
+
 ## メモ
 
 - 10
@@ -11,6 +13,10 @@ Tour of WebAssembly
     - プリミティブでない値をやりとりするための手段となる
 - 14 テキストのロギング
   - 🤔何もしてないのに `module.instance.exports.memory.buffer` にアクセスできるのはなぜ？
+- 15 テキストの読み込み
+  - 単純にRustの文法がわからない
+    - ptr が返しているものは... `*mut u8` とは...
+    - `std::mem::forget` とは
 
 ## 疑問
 

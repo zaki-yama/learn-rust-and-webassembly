@@ -1,16 +1,20 @@
-#[no_mangle]
-pub fn add(a: i32, b: i32) -> i32 {
-    a + b
-}
-
 extern "C" {
-    fn get_magic_number() -> i32;
     fn wasm_log(start: usize, len: usize);
 }
 
 #[no_mangle]
-pub fn main() {
-    log("hello world!");
+pub fn wasm_malloc(len: usize) -> *mut u8 {
+    let mut buf = Vec::with_capacity(len);
+    let ptr = buf.as_mut_ptr();
+    std::mem::forget(buf);
+    ptr
+}
+
+#[no_mangle]
+pub fn main(start: *mut u8, len: usize) {
+    let bytes = unsafe { Vec::from_raw_parts(start, len, len) };
+    let name = std::str::from_utf8(&bytes).unwrap();
+    log(&format!("hello {}!", name));
 }
 
 // 14 テキストのロギング
