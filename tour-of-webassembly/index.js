@@ -1,13 +1,25 @@
 async function load_and_run_wasm(wasmURL) {
   let context = {
     functions: [],
+    objects: [],
     utf8dec: new TextDecoder('utf-8'),
     utf8enc: new TextEncoder('utf-8'),
     getUtf8FromMemory: function(start, len) {
       let memory = new Uint8Array(this.module.instance.exports.memory.buffer);
       let text = this.utf8dec.decode(memory.subarray(start, start + len));
       return text;
-    }
+    },
+    storeObject: function(obj) {
+      let handle = this.objects.length;
+      this.objects.push(obj);
+      return handle;
+    },
+    getObject: function(handle) {
+      return this.objects[handle];
+    },
+    releaseObject: function(handle) {
+      this.objects[handle] = null;
+    },
   };
   let response = await fetch(wasmURL);
   let bytes = await response.arrayBuffer();
