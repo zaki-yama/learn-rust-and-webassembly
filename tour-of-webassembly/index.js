@@ -1,33 +1,31 @@
-async function run() {
-  let response = await fetch("../main.wasm");
+async function load_and_run_wasm(wasmURL) {
+  let context = {
+    functions: [],
+    utf8dec: new TextDecoder('utf-8'),
+    utf8enc: new TextEncoder('utf-8'),
+    getUtf8FromMemory: function(start, len) {
+      let memory = new Uint8Array(this.module.instance.exports.memory.buffer);
+      let text = this.utf8dec.decode(memory.subarray(start, start + len));
+      return text;
+    }
+  };
+  let response = await fetch(wasmURL);
   let bytes = await response.arrayBuffer();
   let module = await WebAssembly.instantiate(bytes, {
     env: {
-      wasm_log(start, len) {
-        // 開始位置と長さから、テキストを抽出する
-        const utf8dec = new TextDecoder("utf-8");
-        let memory = new Uint8Array(module.instance.exports.memory.buffer);
-        let text = utf8dec.decode(memory.subarray(start, start + len));
-        document.getElementById("container").innerHTML += text+"<br>";
-
+      js_register_function(start, len) {
+        let functionBody = context.getUtf8FromMemory(start, len);
+        let id = context.functions.length;
+        context.functions.push(eval("(" + functionBody + ")"));
+        return id;
       },
+      js_invoke_function(funcHandle, a, b, c, d, e, f, g, h, i, j) {
+        return context.functions[funcHandle](context, a, b, c, d, e, f, g, h, i, j);
+      }
     },
   });
-
-  // Tur "Ferris" into bytes
-  const utf8enc = new TextEncoder("utf-8");
-  let text = "Ferris";
-  let text_bytes = utf8enc.encode(text);
-
-  // Allocate enough space for the text
-  let len = text_bytes.length;
-  let start = module.instance.exports.wasm_malloc(len);
-
-  // Put the text in WebAssembly program's memory
-  let memory = new Uint8Array(module.instance.exports.memory.buffer);
-  memory.set(text_bytes, start);
-
-  module.instance.exports.main(start, len);
+  context.module = module;
+  let num = module.instance.exports.main();
 }
 
-run();
+load_and_run_wasm('./main.wasm');

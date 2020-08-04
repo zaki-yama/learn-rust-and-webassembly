@@ -1,27 +1,48 @@
 extern "C" {
-    fn wasm_log(start: usize, len: usize);
+    fn js_register_function(start: usize, len: usize) -> usize;
+
+    fn js_invoke_function(
+        fn_handle: usize,
+        a: f64,
+        b: f64,
+        c: f64,
+        d: f64,
+        e: f64,
+        f: f64,
+        g: f64,
+        h: f64,
+        i: f64,
+        j: f64,
+    ) -> f64;
+
 }
 
-#[no_mangle]
-pub fn wasm_malloc(len: usize) -> *mut u8 {
-    let mut buf = Vec::with_capacity(len);
-    let ptr = buf.as_mut_ptr();
-    std::mem::forget(buf);
-    ptr
+fn register_function(code: &str) -> usize {
+    let start = code.as_ptr();
+    let len = code.len();
+    unsafe { js_register_function(start as usize, len) }
 }
 
-#[no_mangle]
-pub fn main(start: *mut u8, len: usize) {
-    let bytes = unsafe { Vec::from_raw_parts(start, len, len) };
-    let name = std::str::from_utf8(&bytes).unwrap();
-    log(&format!("hello {}!", name));
+fn invoke_function_2(fn_handle: usize, a: f64, b: f64) -> f64 {
+    unsafe { js_invoke_function(fn_handle, a, b, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0) }
 }
 
-// 14 テキストのロギング
 fn log(msg: &str) {
+    let fn_log = register_function(
+        r#"
+    (context, msgStart, msgEnd) => {
+        let msg = context.getUtf8FromMemory(msgStart, msgEnd);
+        console.log(msg);
+        // put it on screen too for demo sake
+        document.getElementById("container").innerHTML += msg + "<br>";
+    }"#,
+    );
     let start = msg.as_ptr();
     let len = msg.len();
-    unsafe {
-        wasm_log(start as usize, len);
-    }
+    invoke_function_2(fn_log, start as usize as f64, len as f64);
+}
+
+#[no_mangle]
+pub fn main() {
+    log("hello world")
 }
