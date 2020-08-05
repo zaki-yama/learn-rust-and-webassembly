@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hello, WebAssembly!</title>
+  <script>
+    const wasm = './target/wasm32-unknown-unknown/release/wasm_dev_book_hello_wasm.wasm';
+    fetch(wasm)
+      .then(response => response.arrayBuffer())
+      .then(bytes => WebAssembly.instantiate(bytes, {}))
+      .then(results => {
+        console.log(results.instance.exports.add(1, 2))
+    });
+  </script>
+</head>
+<body>
+  
+</body>
+</html>
