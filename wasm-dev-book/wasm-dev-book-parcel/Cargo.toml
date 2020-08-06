@@ -10,3 +10,4 @@ edition = "2018"
 crate-type = ["cdylib"]
 
 [dependencies]
+tinymt = { git = "https://github.com/mizdra/rust-tinymt", tag = "0.1.0" }
