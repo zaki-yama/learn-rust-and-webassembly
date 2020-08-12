@@ -34,7 +34,7 @@ Rust学習用リポジトリ
   - WASM をやるならまずこれかな
 - ✅ 🇯🇵 [Tour of WebAssembly](https://tourofrust.com/webassembly/00_en.html) ([日本語](https://tourofrust.com/webassembly/00_ja.html))
     - Tour of Rust の WASM 版。URL 的にも Tour of Rust の下にある (けどどこからリンクされてるのかは謎)
-- 🇯🇵 [WebAssembly 開発環境構築の本 | WebAssembly 開発環境構築の本](https://wasm-dev-book.netlify.app/)
+- ✅ 🇯🇵 [WebAssembly 開発環境構築の本 | WebAssembly 開発環境構築の本](https://wasm-dev-book.netlify.app/)
     - Rustで初めてWASMをやるときに読むとよさそう
 
 ### 書籍
