@@ -32,3 +32,16 @@ https://rustwasm.github.io/docs/book/introduction.html
 - Linear Memory
   - WASMはシンプルなメモリモデル
   - 単一の "linear memory"、本質的にはフラットなバイト列を扱う
+
+## 4. Tutorial
+
+### 4.1 Setup
+
+ツールの紹介
+
+- `wasm-pack`
+  - Rustから生成されたWebAssemblyのビルド、テスト、パブリッシュを一貫してやってくれるツール
+- `cargo-generate`
+  - Rust プロジェクトをテンプレートからはじめられるCLI
+  - `create-react-app` とか `yeoman` 的なやつかな
+- `npm`
