@@ -21,3 +21,14 @@ https://rustwasm.github.io/docs/book/introduction.html
     - cargo によるパッケージマネジメント
     - 表現力の高い(そしてゼロコストの)抽象化
     - コミュニティ
+
+## 3.1 What is WebAssembly?
+
+- WASMのキーワード: portable, compact, execute at or near native speeds
+- WASMは以下2つのフォーマットがある
+  - `.wat`: S-expressions という記法を使ったテキストフォーマット(WebAssembly Text)で、SchemやClojureなどのLisp系言語と似ている
+  - `.wasm`: バイナリフォーマットで、wasm vitual machines で直接消費されることを意図している。  
+  概念的にはELFやMach-O(?)と似ている
+- Linear Memory
+  - WASMはシンプルなメモリモデル
+  - 単一の "linear memory"、本質的にはフラットなバイト列を扱う
