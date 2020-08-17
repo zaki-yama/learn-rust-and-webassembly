@@ -1,3 +1,3 @@
-import * as wasm from "hello-wasm-pack";
+import * as wasm from "@zaki-yama/wasm-game-of-life";
 
-wasm.greet();
+wasm.greet('zaki-yama');
