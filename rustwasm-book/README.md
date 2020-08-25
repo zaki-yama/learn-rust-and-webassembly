@@ -45,3 +45,32 @@ https://rustwasm.github.io/docs/book/introduction.html
   - Rust プロジェクトをテンプレートからはじめられるCLI
   - `create-react-app` とか `yeoman` 的なやつかな
 - `npm`
+
+### 4.4 Implementing Life
+
+Interfacing Rust and JavaScript
+
+- JS の garbage-collected heap - `Object` や `Array`、DOM が格納される場所と、Rustの値が格納されるWebAssemblyの線形なメモリ領域はまったく異なる
+- WASMはApril 2018まではこのgarbage-collected heapには直接アクセスできない(Interface Types proposalが実現すると変わることが期待されていたらしい)
+  - 今は？🤔
+- 一方JSはWASMの線形メモリ領域の読み書きが可能だが、スカラ値(`u8`, `i32`, `f64` etc.)の `ArrayBuffer` としてしか扱えない
+  - WASMの関数も同様にスカラ値を引数で受け取って返すことしかできない
+- `wasm_bindgen` は、このWASMとJSの境界をまたいで複合的な構造のデータをやり取りするための共通理解を定義する
+  - Rustの構造体をboxingしたり、
+  - 利便性のためにJSのクラス内のポインタをラップしてあげたり
+- WASMとJSの間のインターフェースを設計する際、以下のようなことを最適化したい：
+  1. WASMの線形メモリ領域への／からのコピーを最小化したい
+    - 不要なコピーは不要なオーバーヘッドを引き起こす
+  2. シリアライズとデシリアライズを最小化したい
+    - コピー同様、オーバーヘッドになる
+    - "opaque handles" (不透明なハンドル) とは？
+- 一般的な経験則として、良いJS<>WASMのインターフェース設計は、long-livedなデータ構造はRustで実装し、それをopaque handlesとしてJS側に露出するというもの
+
+Interfacing Rust and JavaScript in our Game of Life
+
+- 避けるべき危険要因を列挙するところからはじめよう
+  - 毎回のtickごとにすべてのuniverseをWASMの線形メモリ領域にコピーするといったことはしたくない
+  - universeのすべてのセルのためにオブジェクトを割り当てる(allocate)ことはしたくないし、 nor do we want to impose a cross-boundary call to read and write each cell.
+- universeのセルをJSに露出するにはいくつかの方法がある
+  - はじめに、 `Universe` に `std::fmt::Display` を実装し、セルをテキストとしてレンダーする
+  - このRustのStringはWASMのメモリからJSのメモリにコピーされ、JS側でHTMLの`textContent`にセットすることで表示する
