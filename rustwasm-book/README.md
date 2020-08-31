@@ -74,3 +74,15 @@ Interfacing Rust and JavaScript in our Game of Life
 - universeのセルをJSに露出するにはいくつかの方法がある
   - はじめに、 `Universe` に `std::fmt::Display` を実装し、セルをテキストとしてレンダーする
   - このRustのStringはWASMのメモリからJSのメモリにコピーされ、JS側でHTMLの`textContent`にセットすることで表示する
+
+Rust Implementation
+
+- `wasm-pack build` でエラー。このバグ踏んだ
+  - [wasm-opt: Exported global cannot be mutable · Issue #886 · rustwasm/wasm-pack](https://github.com/rustwasm/wasm-pack/issues/886#issuecomment-667669802)
+
+Rendering to Canvas Directly from Memory
+
+- Rustで `String` を生成し `wasm-bindgen` によってJSの文字列にコンバートさせるのは、不要なセルのコピーを発生させている
+- JS側ですでにwidthとheightは知っており、WASMの線形メモリ領域から読むことができるので、ロジックを改善させることができる
+- raw wasm module である `wasm_game_of_life_bg` に定義されている `memory` モジュールを通じて、wasmの線形メモリ領域に直接アクセスできる
+
