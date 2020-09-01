@@ -86,3 +86,41 @@ Rendering to Canvas Directly from Memory
 - JS側ですでにwidthとheightは知っており、WASMの線形メモリ領域から読むことができるので、ロジックを改善させることができる
 - raw wasm module である `wasm_game_of_life_bg` に定義されている `memory` モジュールを通じて、wasmの線形メモリ領域に直接アクセスできる
 
+### 4.5 Testing Life
+
+> Rust-generated WebAssembly functions cannot return borrowed references.
+
+- `wasm-pack test --chrome --headless` でブラウザを利用したE2Eテストができる
+
+```
+Running headless tests in Chrome on `http://127.0.0.1:56291/`
+Try find `webdriver.json` for configure browser's capabilities:
+Not found
+driver status: signal: 9
+driver stdout:
+    Starting ChromeDriver 74.0.3729.6 (255758eccf3d244491b8a1317aa76e1ce10d57e9-refs/branch-heads/3729@{#29}) on port 56291
+    Only local connections are allowed.
+    Please protect ports used by ChromeDriver and related test frameworks to prevent access by malicious code.
+
+Error: failed to find element reference in response
+error: test failed, to rerun pass '--test web'
+Error: Running Wasm tests with wasm-bindgen-test failed
+Caused by: failed to execute `cargo test`: exited with exit code: 1
+  full command: "cargo" "test" "--target" "wasm32-unknown-unknown"
+```
+
+-> Homebrew でインストールした chromedriver のバージョンが古かった
+
+```
+$ chromedriver -v
+ChromeDriver 74.0.3729.6 (255758eccf3d244491b8a1317aa76e1ce10d57e9-refs/branch-heads/3729@{#29})
+
+$ brew cask upgrade chromedriver
+```
+
+https://github.com/rustwasm/wasm-pack/issues/611#issuecomment-522093207
+によると、インストール済みの chromedriver を探す？
+
+> `wasm-pack` is searching for currently installed chromedriver (see https://github.com/rustwasm/wasm-pack/blob/master/src/test/webdriver.rs#L34) so we can use that fact.
+
+
