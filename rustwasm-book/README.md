@@ -124,3 +124,39 @@ https://github.com/rustwasm/wasm-pack/issues/611#issuecomment-522093207
 > `wasm-pack` is searching for currently installed chromedriver (see https://github.com/rustwasm/wasm-pack/blob/master/src/test/webdriver.rs#L34) so we can use that fact.
 
 
+### 4.6 Debugging
+
+[Debugging - Rust and WebAssembly](https://rustwasm.github.io/docs/book/reference/debugging.html)
+
+Building with Debug Symbols
+
+- デバッグ時はdebug symbolsを有効にしろ
+- debugビルドはデフォルトでsymbolsが有効化されるが、releaseビルドはCargo.toml内で明示的に有効にする必要がある
+
+```toml
+[profile.release]
+debug = true
+```
+
+Logging with the console APIs
+
+- `web-sys` というクレートを使うとRust側でも `console.log` ぽい関数が使える
+  - `web_sys::console::log_1(&"Hello, world!".into());`
+
+Logging Panics
+
+- `console_error_panic_hook` クレートを使うとパニック時に `console.error` に表示してくれる
+
+Using a Debugger
+
+- まだまだ未熟(immature)だって書いてある
+- [Improved WebAssembly debugging in Chrome DevTools  |  Google Developers](https://developers.google.com/web/updates/2019/12/webassembly) でdevtoolsまわり改善されてる？
+
+Avoid the Need to Debug WebAssembly in the First Place
+
+- バグがJSやWeb APIとのインタラクションに特有のものであれば、 `wasm-bindgen-test` を使う
+- そうでなければ、Rustの `#[test]` 関数で再現させる
+
+> Note that in order to run native `#[test]`s without compiler and linker errors, you will need to ensure that "rlib" is included in the `[lib.crate-type]` array in your `Cargo.toml` file.
+
+
