@@ -159,4 +159,7 @@ Avoid the Need to Debug WebAssembly in the First Place
 
 > Note that in order to run native `#[test]`s without compiler and linker errors, you will need to ensure that "rlib" is included in the `[lib.crate-type]` array in your `Cargo.toml` file.
 
+### 4.7 Adding Interactivity
 
+- ユーザーがセルをクリックしたら dead/alive をトグルする機能の追加
+- wasm に関連して目新しい情報はなし。canvas 上のクリックされた座標をどう変換するかとかの方が勉強
