@@ -3,6 +3,24 @@ mod utils;
 use wasm_bindgen::prelude::*;
 
 extern crate web_sys;
+use web_sys::console;
+
+pub struct Timer<'a> {
+    name: &'a str,
+}
+
+impl<'a> Timer<'a> {
+    pub fn new(name: &'a str) -> Timer<'a> {
+        console::time_with_label(name);
+        Timer { name }
+    }
+}
+
+impl<'a> Drop for Timer<'a> {
+    fn drop(&mut self) {
+        console::time_end_with_label(self.name);
+    }
+}
 
 // A macro to provide `println!(..)`-style syntax for `console.log` logging.
 macro_rules! log {
@@ -71,6 +89,7 @@ impl Universe {
 #[wasm_bindgen]
 impl Universe {
     pub fn tick(&mut self) {
+        let _timer = Timer::new("Universe::tick");
         let mut next = self.cells.clone();
 
         for row in 0..self.height {

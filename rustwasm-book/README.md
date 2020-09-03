@@ -183,3 +183,8 @@ Avoid the Need to Debug WebAssembly in the First Place
 Creating a Frames Per Second Timer with the `window.performance.now` Function
 
 - `window.performance.now` を使用した計測
+
+Time Each `Universe::tick` with `console.time` and `console.timeEnd`
+
+- `web-sys` で `console.time` と `console.timeEnd` を Rust 側で使って tick 関数の実行時間を計測する
+- てっきり関数の最初と最後に time と timeEnd を仕込むのかと思ったけど、構造体を定義して drop 時に timeEnd すればいいというのはなるほどという感じ（よくわかってないけど）
