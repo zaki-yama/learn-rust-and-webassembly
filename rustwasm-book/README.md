@@ -163,3 +163,23 @@ Avoid the Need to Debug WebAssembly in the First Place
 
 - ユーザーがセルをクリックしたら dead/alive をトグルする機能の追加
 - wasm に関連して目新しい情報はなし。canvas 上のクリックされた座標をどう変換するかとかの方が勉強
+
+### 4.8 Time Profiling
+
+[Time Profiling - Rust and WebAssembly](https://rustwasm.github.io/docs/book/reference/time-profiling.html) で紹介されてるもの
+
+- `window.performance.now()`
+  - 若干オーバーヘッドがあるので、web-sys crate を使った独自のnow()をRustで実装する方法が紹介されてる。必要？
+- devtoolによるプロファイリング
+  - debug symbolsを有効にしてるとnameにRustの関数名が表示される
+  - NOTE: インライン化された関数は表示されず、RustとLLVMはインライン化にひどく頼っており、結果は少々ややこしいことになる可能性も
+- `console.time` と `console.timeEnd`
+  - `console.time('foo')` ~ `console.timeEnd('foo')` で囲んだところの実行時間が測定される
+  - 結果は console に出力されるだけでなくプロファイラーの"timeline"や"waterfall"ビューにも表示される
+- `#[bench]`
+  - `#[bench]` をつける、 `benches` ディレクトリにベンチマーク用のファイルを置く
+  - NOTE: ネイティブコードのプロファイルに時間を投資する前に、ボトルネックが wasm にあることをブラウザのプロファイラーを使って確認すべき
+
+Creating a Frames Per Second Timer with the `window.performance.now` Function
+
+- `window.performance.now` を使用した計測
