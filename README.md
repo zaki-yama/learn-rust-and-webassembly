@@ -30,7 +30,7 @@ Rust学習用リポジトリ
 
 ### WebAssembly (WASM)
 
-- [公式] [Rust and WebAssembly](https://rustwasm.github.io/docs/book/)
+- ✅ [公式] [Rust and WebAssembly](https://rustwasm.github.io/docs/book/)
   - WASM をやるならまずこれかな
 - ✅ 🇯🇵 [Tour of WebAssembly](https://tourofrust.com/webassembly/00_en.html) ([日本語](https://tourofrust.com/webassembly/00_ja.html))
     - Tour of Rust の WASM 版。URL 的にも Tour of Rust の下にある (けどどこからリンクされてるのかは謎)
