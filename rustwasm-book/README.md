@@ -3,7 +3,45 @@ Rust 🦀 and WebAssembly 🕸
 
 https://rustwasm.github.io/docs/book/introduction.html
 
-## 2. Why Rust and WebAssembly?
+<!-- TOC -->
+
+- [学び](#学び)
+- [疑問](#疑問)
+- [メモ](#メモ)
+  - [2. Why Rust and WebAssembly?](#2-why-rust-and-webassembly)
+  - [3.1 What is WebAssembly?](#31-what-is-webassembly)
+  - [4. Tutorial](#4-tutorial)
+    - [4.1 Setup](#41-setup)
+    - [4.4 Implementing Life](#44-implementing-life)
+    - [4.5 Testing Life](#45-testing-life)
+    - [4.6 Debugging](#46-debugging)
+    - [4.7 Adding Interactivity](#47-adding-interactivity)
+    - [4.8 Time Profiling](#48-time-profiling)
+    - [4.9 Shrinking .wasm Size](#49-shrinking-wasm-size)
+    - [4.10 Publishing to npm](#410-publishing-to-npm)
+
+<!-- /TOC -->
+
+## 学び
+
+- wasm-pack を前提としたアプリの開発方法
+  - Rust 側は [wasm-pack-template](https://github.com/rustwasm/wasm-pack-template) を、フロントエンド側は [create-wasm-app](https://github.com/rustwasm/create-wasm-app) テンプレートを使った
+- デバッグ方法
+  - Rust 側のプログラムに `console.log()` を仕込む方法
+  - Rust 側でパニック時にブラウザの `console.error` に出力する方法
+- `web-sys` crate を使うと JS の Web API が Rust でも使える
+  - e.g.) `console.log()` -> `web_sys::console::log_1()`
+- テスト
+  - `wasm-pack test --chrome --headless` でE2Eテスト
+
+## 疑問
+- wasm-pack-template の中身
+- memory モジュールを使ったメモリの読み書き(Tour of WebAssembly もっかい読むとよさそう)
+- `extern crate` って必要なの？
+- `.wat` ファイル
+
+## メモ
+### 2. Why Rust and WebAssembly?
 
 - ローレベルなコントロールとハイレベルなエルゴノミクス(?)
   - JS は信頼できるパフォーマンスを獲得しようともがいていた
@@ -22,7 +60,7 @@ https://rustwasm.github.io/docs/book/introduction.html
     - 表現力の高い(そしてゼロコストの)抽象化
     - コミュニティ
 
-## 3.1 What is WebAssembly?
+### 3.1 What is WebAssembly?
 
 - WASMのキーワード: portable, compact, execute at or near native speeds
 - WASMは以下2つのフォーマットがある
@@ -33,9 +71,9 @@ https://rustwasm.github.io/docs/book/introduction.html
   - WASMはシンプルなメモリモデル
   - 単一の "linear memory"、本質的にはフラットなバイト列を扱う
 
-## 4. Tutorial
+### 4. Tutorial
 
-### 4.1 Setup
+#### 4.1 Setup
 
 ツールの紹介
 
@@ -46,7 +84,7 @@ https://rustwasm.github.io/docs/book/introduction.html
   - `create-react-app` とか `yeoman` 的なやつかな
 - `npm`
 
-### 4.4 Implementing Life
+#### 4.4 Implementing Life
 
 Interfacing Rust and JavaScript
 
@@ -86,7 +124,7 @@ Rendering to Canvas Directly from Memory
 - JS側ですでにwidthとheightは知っており、WASMの線形メモリ領域から読むことができるので、ロジックを改善させることができる
 - raw wasm module である `wasm_game_of_life_bg` に定義されている `memory` モジュールを通じて、wasmの線形メモリ領域に直接アクセスできる
 
-### 4.5 Testing Life
+#### 4.5 Testing Life
 
 > Rust-generated WebAssembly functions cannot return borrowed references.
 
@@ -124,7 +162,7 @@ https://github.com/rustwasm/wasm-pack/issues/611#issuecomment-522093207
 > `wasm-pack` is searching for currently installed chromedriver (see https://github.com/rustwasm/wasm-pack/blob/master/src/test/webdriver.rs#L34) so we can use that fact.
 
 
-### 4.6 Debugging
+#### 4.6 Debugging
 
 [Debugging - Rust and WebAssembly](https://rustwasm.github.io/docs/book/reference/debugging.html)
 
@@ -159,12 +197,12 @@ Avoid the Need to Debug WebAssembly in the First Place
 
 > Note that in order to run native `#[test]`s without compiler and linker errors, you will need to ensure that "rlib" is included in the `[lib.crate-type]` array in your `Cargo.toml` file.
 
-### 4.7 Adding Interactivity
+#### 4.7 Adding Interactivity
 
 - ユーザーがセルをクリックしたら dead/alive をトグルする機能の追加
 - wasm に関連して目新しい情報はなし。canvas 上のクリックされた座標をどう変換するかとかの方が勉強
 
-### 4.8 Time Profiling
+#### 4.8 Time Profiling
 
 [Time Profiling - Rust and WebAssembly](https://rustwasm.github.io/docs/book/reference/time-profiling.html) で紹介されてるもの
 
@@ -202,7 +240,7 @@ Making Time Run Faster
   - `fn live_neighbor_count` で剰余算 `%` (div) を使っていたのが原因
 - TODO: 実際に試してはいない
 
-### 4.9 Shrinking .wasm Size
+#### 4.9 Shrinking .wasm Size
 
 LTO: Link Time Optimizations
 
@@ -224,7 +262,7 @@ LTO: Link Time Optimizations
 
     があり、最適化済みなのかどうかよくわからなかった。
 
-### 4.10 Publishing to npm
+#### 4.10 Publishing to npm
 
 npm パッケージ名の衝突を避けるためにCargo.tomlのnameにprefix/suffixつける方法が紹介されてたけど、個人的にはscoped packageにする方が好き
 
