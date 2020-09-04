@@ -188,3 +188,16 @@ Time Each `Universe::tick` with `console.time` and `console.timeEnd`
 
 - `web-sys` で `console.time` と `console.timeEnd` を Rust 側で使って tick 関数の実行時間を計測する
 - てっきり関数の最初と最後に time と timeEnd を仕込むのかと思ったけど、構造体を定義して drop 時に timeEnd すればいいというのはなるほどという感じ（よくわかってないけど）
+
+Growing our Game of Life Universe
+
+- devtools のパフォーマンスタブを使ってボトルネック測定する、というJS側だけの話
+
+Making Time Run Faster
+
+- 1回のアニメーションフレームで tick を10回ずつ進めるとまたパフォーマンスが落ちるので、その分析
+- Rust の `#[feature(test)]` という機能(nightlyが必要)と、 cargo benchcmp というツールを使う
+- さらにOSのパフォーマンス計測コマンドを使った分析方法
+  - Linuxだと `perf` というコマンドがあるらしいが、Macにはなかった
+  - `fn live_neighbor_count` で剰余算 `%` (div) を使っていたのが原因
+- TODO: 実際に試してはいない
