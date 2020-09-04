@@ -223,3 +223,13 @@ LTO: Link Time Optimizations
     ```
 
     があり、最適化済みなのかどうかよくわからなかった。
+
+### 4.10 Publishing to npm
+
+npm パッケージ名の衝突を避けるためにCargo.tomlのnameにprefix/suffixつける方法が紹介されてたけど、個人的にはscoped packageにする方が好き
+
+[Packaging and publishing - Hello wasm-pack!](https://rustwasm.github.io/docs/wasm-pack/tutorials/npm-browser-packages/packaging-and-publishing.html)
+
+```sh
+$ wasm-pack build --scope MYSCOPE
+```
