@@ -201,3 +201,25 @@ Making Time Run Faster
   - Linuxだと `perf` というコマンドがあるらしいが、Macにはなかった
   - `fn live_neighbor_count` で剰余算 `%` (div) を使っていたのが原因
 - TODO: 実際に試してはいない
+
+### 4.9 Shrinking .wasm Size
+
+LTO: Link Time Optimizations
+
+- Cargo.toml の `[profile.release]` に `lto = true` とつけるだけ
+
+> This gives LLVM many more opportunities to inline and prune functions. Not only will it make the `.wasm` smaller, but it will also make it faster at runtime! The downside is that compilation will take longer.
+
+コンパイル時間は長くなる以外のデメリットがないので、本番ビルドでは常にONにするのがいいのかな🤔
+
+- `wasm-opt` とは？
+  - [Binaryen](https://github.com/WebAssembly/binaryen) に含まれる1ツール、ぽい
+  - "Loads WebAssembly and runs Binaryen IR passes on it"
+- wasm-pack-template ですでに
+
+    ```toml
+    [package.metadata.wasm-pack.profile.release]
+    wasm-opt = ["-Oz", "--enable-mutable-globals"]
+    ```
+
+    があり、最適化済みなのかどうかよくわからなかった。
