@@ -17,7 +17,8 @@ Rust学習用リポジトリ
   - 日本語訳は一部のみ
 - [Let's build a browser engine! Part 1: Getting started](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)
   - ステップバイステップでブラウザのレンダリングエンジン作る
-  - 今読んでる本が終わったら真っ先にやってみたい
+- [Writing an OS in Rust](https://os.phil-opp.com/)
+  - RustでOSを作るチュートリアル
 - [rust-embedded/rust-raspberrypi-OS-tutorials: Learn to write an embedded OS in Rust](https://github.com/rust-embedded/rust-raspberrypi-OS-tutorials)
   - ラズパイで動くOSを作るチュートリアル
 - [Let’s Write a Web Assembly Interpreter (Part 1) | by Richard Anaya | Medium](https://medium.com/@richardanaya/lets-write-a-web-assembly-interpreter-part-1-287298201d75)
@@ -27,7 +28,7 @@ Rust学習用リポジトリ
 - [Base game - Rust sokoban](https://sokoban.iolivia.me/)
   - Rustで倉庫番っぽいゲームを作る
   - https://twitter.com/oliviff/status/1281641563257360384?s=20
-
+  
 ### WebAssembly (WASM)
 
 - ✅ [公式] [Rust and WebAssembly](https://rustwasm.github.io/docs/book/)
