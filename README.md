@@ -7,7 +7,7 @@ Rust学習用リポジトリ
 
 ### Rust
 
-- [公式] [The Rust Programming Language - The Rust Programming Language](https://doc.rust-lang.org/book/)
+- 🇯🇵 [公式] [The Rust Programming Language - The Rust Programming Language](https://doc.rust-lang.org/book/) ([日本語](https://doc.rust-jp.rs/book-ja/))
     - The Bookと呼ばれるもの。Rust の言語機能
 - [公式] [Rustlings](https://github.com/rust-lang/rustlings/)
     - エクササイズ集
@@ -28,7 +28,10 @@ Rust学習用リポジトリ
 - [Base game - Rust sokoban](https://sokoban.iolivia.me/)
   - Rustで倉庫番っぽいゲームを作る
   - https://twitter.com/oliviff/status/1281641563257360384?s=20
+- [Rust Web — Monday Morning Haskell](https://mmhaskell.com/rust-web)
+  - Rust で Web アプリケーションを作る連載記事。サーバはRocketでORMはdiesel、DBはPostgreSQL ([発見元](https://twitter.com/blackenedgold/status/1311583476789866501?s=20))
   
+
 ### WebAssembly (WASM)
 
 - ✅ [公式] [Rust and WebAssembly](https://rustwasm.github.io/docs/book/)
