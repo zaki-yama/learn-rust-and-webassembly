@@ -43,6 +43,7 @@ Rust学習用リポジトリ
 
 ### Awesome 系
 - wasm: [mbasso/awesome-wasm: 😎 Curated list of awesome things regarding WebAssembly (wasm) ecosystem.](https://github.com/mbasso/awesome-wasm)
+- Rust: [rust-unofficial/awesome-rust: A curated list of Rust code and resources.](https://github.com/rust-unofficial/awesome-rust)
 
 ### 書籍
 
