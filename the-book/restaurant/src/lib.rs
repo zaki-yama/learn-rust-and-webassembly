@@ -16,6 +16,8 @@ mod front_of_house {
 
 fn serve_order() {}
 
+use crate::front_of_house::hosting;
+
 mod back_of_house {
     pub struct Breakfast {
         pub toast: String,
@@ -64,4 +66,14 @@ pub fn eat_at_restaurant() {
 
     let order1 = back_of_house::Appetizer::Soup;
     let order2 = back_of_house::Appetizer::Salad;
+
+    // ch07-04 `use` キーワードでパスをスコープに持ち込む
+    hosting::add_to_waitlist();
 }
+
+use std::fmt::Result;
+use std::io::Result as IoResult;
+
+fn function1() -> Result {}
+
+fn function2() -> IoResult<()> {}
