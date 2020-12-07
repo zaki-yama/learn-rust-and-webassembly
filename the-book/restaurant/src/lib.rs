@@ -16,7 +16,7 @@ mod front_of_house {
 
 fn serve_order() {}
 
-use crate::front_of_house::hosting;
+pub use crate::front_of_house::hosting;
 
 mod back_of_house {
     pub struct Breakfast {
