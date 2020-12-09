@@ -1,8 +1,19 @@
 use reqwest::blocking::Client;
 use select::document::Document;
 use select::predicate::Name;
+use thiserror::Error;
 use url::ParseError as UrlParseError;
 use url::Url;
+
+#[derive(Debug, Error)]
+pub enum GetLinksError {
+    #[error("Failed to send a request")]
+    SendRequest(#[source] reqwest::Error),
+    #[error("Failed to read the response body")]
+    ResponseBody(#[source] reqwest::Error),
+    #[error("Failed to make the link URL absolute")]
+    AbsolutizeUrl(#[source] url::ParseError),
+}
 
 pub struct LinkExtractor {
     client: Client,
@@ -13,12 +24,18 @@ impl LinkExtractor {
         Self { client }
     }
 
-    pub fn get_links(&self, url: Url) -> Result<Vec<Url>, eyre::Report> {
+    pub fn get_links(&self, url: Url) -> Result<Vec<Url>, GetLinksError> {
         log::info!("GET \"{}\"", url);
-        let response = self.client.get(url).send()?;
+        let response = self
+            .client
+            .get(url)
+            .send()
+            .map_err(|e| GetLinksError::SendRequest(e))?;
         let base_url = response.url().clone();
         let status = response.status();
-        let body = response.text()?;
+        let body = response
+            .text()
+            .map_err(|e| GetLinksError::ResponseBody(e))?;
         let doc = Document::from(body.as_str());
 
         let mut links = Vec::new();
@@ -30,7 +47,9 @@ impl LinkExtractor {
                 }
                 Err(UrlParseError::RelativeUrlWithoutBase) => {
                     // `href` を絶対URLに変換する
-                    let url = base_url.join(href)?;
+                    let url = base_url
+                        .join(href)
+                        .map_err(|e| GetLinksError::AbsolutizeUrl(e))?;
                     links.push(url);
                 }
                 Err(e) => {
