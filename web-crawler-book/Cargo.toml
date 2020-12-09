@@ -10,3 +10,4 @@ edition = "2018"
 reqwest = { version = "0.10.9", features = ["blocking"] }
 eyre = "0.6.3"
 select = "0.5.0"
+url = "2.2.0"

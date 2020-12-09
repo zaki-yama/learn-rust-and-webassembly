@@ -14,6 +14,9 @@ borrow of moved value: `response`
 value borrowed here after moverustcE0382
 ```
 
+=> Chapter 03 で触れられてた
+
+> レスポンスのボディを取り出す`text`メソッドが`Response`オブジェクトを消費してしまうことに注意します
 
 ## 03 リンクを抽出する
 
