@@ -6,8 +6,8 @@ fn main() -> eyre::Result<()> {
 
     let doc = Document::from(body.as_str());
 
-    for a in doc.find(Name("a")) {
-        println!("{:?}", a);
+    for href in doc.find(Name("a")).filter_map(|a| a.attr("href")) {
+        println!("{:?}", href);
     }
     Ok(())
 }
