@@ -47,18 +47,24 @@ impl LinkExtractor {
         log::info!("Retrieved {} \"{}\"", status, base_url);
         for href in doc.find(Name("a")).filter_map(|a| a.attr("href")) {
             match Url::parse(href) {
-                Ok(url) => {
+                Ok(mut url) => {
+                    url.set_fragment(None);
                     links.push(url);
                 }
                 Err(UrlParseError::RelativeUrlWithoutBase) => {
                     // `href` を絶対URLに変換する
-                    let url = base_url
-                        .join(href)
-                        .map_err(|e| GetLinksError::AbsolutizeUrl(e))?;
-                    links.push(url);
+                    match base_url.join(href) {
+                        Ok(mut url) => {
+                            url.set_fragment(None);
+                            links.push(url);
+                        }
+                        Err(e) => {
+                            log::warn!("URL join error: {}", e);
+                        }
+                    }
                 }
                 Err(e) => {
-                    println!("Error:{}", e);
+                    log::warn!("URL parse error: {}", e);
                 }
             };
         }

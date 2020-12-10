@@ -5,7 +5,10 @@ use web_crawler_book::LinkExtractor;
 fn main() -> eyre::Result<()> {
     env_logger::init();
 
-    let url = Url::parse("https://www.rust-lang.org")?;
+    let url = std::env::args()
+        .nth(1)
+        .unwrap_or(String::from("https://www.rust-lang.org"));
+    let url = Url::parse(&url)?;
     let client = ClientBuilder::new().build()?;
     let extractor = LinkExtractor::from_client(client);
 
