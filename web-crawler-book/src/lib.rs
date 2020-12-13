@@ -5,6 +5,8 @@ use thiserror::Error;
 use url::ParseError as UrlParseError;
 use url::Url;
 
+pub mod crawler;
+
 #[derive(Debug, Error)]
 pub enum GetLinksError {
     #[error("Failed to send a request")]

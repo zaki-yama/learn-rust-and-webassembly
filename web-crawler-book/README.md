@@ -45,3 +45,10 @@ ref. https://doc.rust-lang.org/1.41.0/std/iter/trait.Iterator.html#method.filter
 > 
 > In other words, it removes the `Option<T>` layer automatically. If your mapping is already returning an `Option<T>` and you want to skip over `None`s, then `filter_map` is much, much nicer to use.
 
+
+## 07 幅優先探索を実装する
+
+> 頂点を取り出すグラフは`AdjacentNodes`トレイトを実装したオブジェクトへの参照を持つことにします。なので型パラメータに参照のライフタイムが必要になります。
+
+?
+
