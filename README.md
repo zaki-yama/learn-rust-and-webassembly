@@ -18,6 +18,7 @@ Rust学習用リポジトリ
 - ✅ [Rustで簡易ウェブクローラを作る by zenn](https://zenn.dev/shotaro_tsuji/books/32df27b4cc54df4fa7a5)
 - [Let's build a browser engine! Part 1: Getting started](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)
   - ステップバイステップでブラウザのレンダリングエンジン作る
+- [Rust Design Patterns](https://rust-unofficial.github.io/patterns/)
 - [Writing an OS in Rust](https://os.phil-opp.com/)
   - RustでOSを作るチュートリアル
 - [rust-embedded/rust-raspberrypi-OS-tutorials: Learn to write an embedded OS in Rust](https://github.com/rust-embedded/rust-raspberrypi-OS-tutorials)
