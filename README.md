@@ -33,6 +33,8 @@ Rust学習用リポジトリ
 - [Rust Web — Monday Morning Haskell](https://mmhaskell.com/rust-web)
   - Rust で Web アプリケーションを作る連載記事。サーバはRocketでORMはdiesel、DBはPostgreSQL ([発見元](https://twitter.com/blackenedgold/status/1311583476789866501?s=20))
 - [Rustで始める自作組込みOS入門](https://garasubo.github.io/embedded-book/index.html)
+- [Rust を始めるための資料集 - Don't Repeat Yourself](https://blog-dry.com/entry/2021/01/23/141936)
+  - チュートリアル系がまとまってる
 
 ### WebAssembly (WASM)
 
