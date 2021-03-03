@@ -16,8 +16,10 @@ Rust学習用リポジトリ
   - オンラインで直接コードを編集・動かしながら学べる
   - 日本語訳は一部のみ
 - ✅ [Rustで簡易ウェブクローラを作る by zenn](https://zenn.dev/shotaro_tsuji/books/32df27b4cc54df4fa7a5)
-- [Let's build a browser engine! Part 1: Getting started](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)
+- ✅ [Let's build a browser engine! Part 1: Getting started](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)
   - ステップバイステップでブラウザのレンダリングエンジン作る
+  - repo: https://github.com/zaki-yama-labs/rust-toy-browser-engine
+  - blog: [「Let's build a browser engine!」を読んでRustで簡易レンダリングエンジンを作った - dackdive's blog](https://dackdive.hateblo.jp/entry/2021/02/23/113522)
 - [Rust Design Patterns](https://rust-unofficial.github.io/patterns/)
 - [Writing an OS in Rust](https://os.phil-opp.com/)
   - RustでOSを作るチュートリアル
