@@ -47,6 +47,7 @@ Rust学習用リポジトリ
 - ✅ 🇯🇵 [WebAssembly 開発環境構築の本 | WebAssembly 開発環境構築の本](https://wasm-dev-book.netlify.app/)
     - Rustで初めてWASMをやるときに読むとよさそう
 - ✅ [Hands-on WebAssembly: Try the basics — Martian Chronicles, Evil Martians’ team blog](https://evilmartians.com/chronicles/hands-on-webassembly-try-the-basics)
+- [WebAssembly for JavaScript Developers](https://pascalpares.appspot.ovh/webassembly-for-javascript-developers/)
 
 ### Awesome 系
 - wasm: [mbasso/awesome-wasm: 😎 Curated list of awesome things regarding WebAssembly (wasm) ecosystem.](https://github.com/mbasso/awesome-wasm)
