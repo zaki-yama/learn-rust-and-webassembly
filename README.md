@@ -58,3 +58,7 @@ Rust学習用リポジトリ
 - ✅ [実践Rust入門[言語仕様から開発手法まで]](https://www.amazon.co.jp/exec/obidos/ASIN/4297105594/zakiyama08-22/) (2019/5/8)
 - [プログラミング言語Rust入門](https://www.amazon.co.jp/exec/obidos/ASIN/B087BZQ48R/zakiyama08-22/) (2020/3/25)
 - [Rustで始めるネットワークプログラミング](https://www.amazon.co.jp/exec/obidos/ASIN/B07SW2GXVF/zakiyama08-22/)
+- [Manning | WebAssembly in Action](https://www.manning.com/books/webassembly-in-action?gclid=CjwKCAjw7J6EBhBDEiwA5UUM2jlkdG6NaXZpwa6AxzrZwAVLRQI-Gz3KSLI4FthCOpC-HZlUshhaZBoC324QAvD_BwE)
+  - 2019年11月
+- [The Art of WebAssembly | No Starch Press](https://nostarch.com/art-webassembly)
+  - 2021年6月
