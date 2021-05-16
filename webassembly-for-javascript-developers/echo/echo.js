@@ -11,6 +11,8 @@ const run = async () => {
       },
     };
     const wasm = await WebAssembly.instantiate(bytecode, imports);
+    console.log(WebAssembly.Module.imports(wasm.module));
+    console.log(WebAssembly.Module.exports(wasm.module));
     wasm.instance.exports.echo(2021);
   } catch (e) {
     console.error(e);
