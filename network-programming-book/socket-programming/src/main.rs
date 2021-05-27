@@ -4,7 +4,7 @@ use std::env;
 extern crate log;
 
 // mod tcp_client;
-// mod tcp_server;
+mod tcp_server;
 // mod udp_client;
 // mod udp_server;
 
@@ -21,9 +21,7 @@ fn main() {
     let address = &args[3];
     match protocol {
         "tcp" => match role {
-            "server" => {
-                // TODO: TCP サーバの呼び出し
-            }
+            "server" => tcp_server::serve(address).unwrap_or_else(|e| error!("{}", e)),
             "client" => {
                 // TODO: TCP クライアントの呼び出し
             }
