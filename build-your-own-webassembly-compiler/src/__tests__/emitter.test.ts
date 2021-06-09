@@ -4,4 +4,10 @@ describe("emitter", () => {
     const wasm = emitter();
     await WebAssembly.instantiate(wasm);
   });
+  test("simple add function", async () => {
+    const wasm = emitter();
+    const { instance } = await WebAssembly.instantiate(wasm);
+    // @ts-ignore
+    expect(instance.exports.run(5, 6)).toEqual(11);
+  });
 });
