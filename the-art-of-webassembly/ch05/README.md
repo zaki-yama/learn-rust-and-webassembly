@@ -20,3 +20,10 @@
   - memory buffer 上の位置を示す 32 ビットの integer を JS にわたす
   - この方法だと文字列の終わりがわからない。どうする？
     - C だと null-terminating byte (末尾に null 文字列 `0`を入れる）で実現してる
+- 文字列の終わりを判断する方法 3 パターン
+  - Passing the String Length to JavaScript
+    - JS に文字列の長さを渡してあげる
+  - Null-Terminated Strings
+    - 文字列の終端に null 文字列 `\0` を入れる
+  - Length-Prefixed Strings
+    - 文字列の最初に文字列自体の長さを埋め込んでおく
