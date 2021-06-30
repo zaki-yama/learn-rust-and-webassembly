@@ -35,6 +35,7 @@
       local.get $dest
       i32.const 1
       i32.add ;; $dest += 1
+      local.set $dest ;; $dest = $dest + 1
 
       local.get $source
       i32.const 1
@@ -59,7 +60,7 @@
     local.set $last_source_byte ;; $last_source_byte = $source + $len
 
     (loop $copy_loop (block $break
-      (i64.store (local.get $dest) (i64.load (local.get $source))
+      (i64.store (local.get $dest) (i64.load (local.get $source)))
 
       local.get $dest
       i32.const 8
@@ -78,16 +79,60 @@
     ))
   )
 
-  (func (export "main")
-    (call $null_str (i32.const 0))
-    (call $null_str (i32.const 128))
+  (func $string_copy
+    (param $source i32) (param $dest i32) (param $len i32)
+    (local $start_source_byte i32)
+    (local $start_dest_byte i32)
+    (local $singles i32)
+    (local $len_less_singles i32)
 
+    local.get $len
+    local.set $len_less_singles ;; value without singles
+
+    local.get $len
+    i32.const 7 ;; 7 = 0111 in binary
+    i32.and
+    local.tee $singles ;; set $singles to last 3 bits of length
+
+
+    if ;; [3] if the last 3 bits of $len is not 000
+      local.get $len
+      local.get $singles
+      i32.sub
+      local.tee $len_less_singles ;; [4] $len_less_singles = $len - $singles
+
+      local.get $source
+      i32.add
+      ;; $start_source_byte = $source + $len_less_singles
+      local.set $start_source_byte ;; [5]
+
+      local.get $len_less_singles
+      local.get $dest
+      i32.add
+      local.set $start_dest_byte ;; [6] $start_dest_byte = $dest + $len_less_singles
+
+      (call $byte_copy (local.get $start_source_byte) ;; [7]
+        (local.get $start_dest_byte)(local.get $singles))
+    end
+
+    local.get $len
+    ;; 1111...1000 との AND を取る
+    i32.const 0xff_ff_ff_f8 ;; [8] all bits are 1 except the last three which are 0
+    i32.and ;; set the last three bits of the length to 0
+    local.set $len
+    (call $byte_copy_i64 (local.get $source) (local.get $dest) (local.get $len))
+  )
+
+  (func (export "main")
     ;; length of the first string is 30 characters
     (call $str_pos_len (i32.const 256) (i32.const 30))
     ;; length of the second string is 35 characters
     (call $str_pos_len (i32.const 384) (i32.const 35))
 
-    (call $len_prefix (i32.const 512))
-    (call $len_prefix (i32.const 640))
+    (call $string_copy
+      (i32.const 256) (i32.const 384) (i32.const 30))
+
+    (call $str_pos_len (i32.const 384) (i32.const 35))
+    (call $str_pos_len (i32.const 384) (i32.const 30))
   )
 )
