@@ -28,3 +28,7 @@
 ```js
 const memory = new WebAssembly.Memory({ initial: 1 });
 ```
+
+#### Pointers
+
+## JavaScript Memory Object
