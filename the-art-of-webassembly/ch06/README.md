@@ -36,3 +36,29 @@ const memory = new WebAssembly.Memory({ initial: 1 });
 - memory は 0 で初期化されるぽい
   - " If we don’t initialize it with a value, the memory buf- fer begins with all data set to 0"
 - 🤔 local の$index は何で初期化されてる？ -> たぶん 0
+
+## Collision Detection
+
+- 前節では memory buffer の作成は JS、初期化は wasm だったが、ここでは初期化も JS 側でやってみる
+- 2 つの円の衝突判定を行うサンプル
+
+### Base Address, Stride, and Offset
+
+- linear memory を JS で扱う際は typed array として扱った
+- Wasm モジュール内では、linear memory はメモリヒープや、巨大なバイト配列に近い
+- あるデータ構造の配列を作るためには、
+  - starting address (base address)
+  - stride (distance in bytes between each structure)
+  - offset of any structure's attributes (how far into a structure can we find our attribute)
+- 今回のデータ構造は 4 つの attributes:
+  - x 座標
+  - y 座標
+  - 半径 radius
+  - ヒットフラグ
+
+## Summary
+
+この章でやったこと
+
+> In this chapter, you learned what WebAssembly linear memory is and how to create it from within the WebAssembly module or JavaScript. Next,
+> we initialized the linear data from within the WebAssembly module and accessed it from JavaScript. Then we created data structures within linear memory using a base address, stride, and attribute offsets, and initialized these data structures from within JavaScript using random data.
