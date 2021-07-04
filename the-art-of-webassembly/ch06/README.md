@@ -32,3 +32,7 @@ const memory = new WebAssembly.Memory({ initial: 1 });
 #### Pointers
 
 ## JavaScript Memory Object
+
+- memory は 0 で初期化されるぽい
+  - " If we don’t initialize it with a value, the memory buf- fer begins with all data set to 0"
+- 🤔 local の$index は何で初期化されてる？ -> たぶん 0
