@@ -11,3 +11,13 @@
 ## Setting Up a Simple Node Server
 
 ## Our First WebAssembly Web Application
+
+## Hex and Binary Strings
+
+- Wasm 側で DOM 操作は直接はできないので、
+  - Wasm 側の関数で
+    - HTML タグを含む文字列を作る
+    - それを linear memory に格納する
+    - 作成された文字列の長さを返す
+  - JS 側から Wasm の関数を呼び出し、返り値の文字列長 `len` を使って `new Uint8Array(memory.buffer, 1024, len)`
+  - ...のようにする
