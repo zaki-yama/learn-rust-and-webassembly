@@ -9,3 +9,5 @@
 > As a general rule, the WebAssembly portion of a web application should focus on work­ ing with numeric data, but with the DOM most of the data processing will likely be string manipulation. The performance of string manipulation from within WebAssembly is entirely dependent on the library you use for the task. For this reason, DOM heavy work is usually best kept in the JavaScript portion of the app.
 
 ## Setting Up a Simple Node Server
+
+## Our First WebAssembly Web Application
