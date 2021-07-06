@@ -37,6 +37,8 @@ Rust & WebAssembly 学習用リポジトリ
 - [Rustで始める自作組込みOS入門](https://garasubo.github.io/embedded-book/index.html)
 - [Rust を始めるための資料集 - Don't Repeat Yourself](https://blog-dry.com/entry/2021/01/23/141936)
   - チュートリアル系がまとまってる
+- [rustviz/rustviz: Interactively Visualizing Ownership and Borrowing](https://github.com/rustviz/rustviz)
+  - 所有権とライフタイムについての本
 
 ### WebAssembly (WASM)
 
