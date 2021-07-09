@@ -14,6 +14,7 @@
   - [The WAT Module](#the-wat-module)
     - [Imported Values](#imported-values)
     - [Clearing the Canvas](#clearing-the-canvas)
+    - [Absolute Value Function](#absolute-value-function)
 
 <!-- /TOC -->
 
@@ -45,3 +46,10 @@
 ### Imported Values
 
 ### Clearing the Canvas
+
+- フレームごとに canvas 全体の描画をクリアするための関数 `clear_canvas` を作る
+
+### Absolute Value Function
+
+- Chapter 6 では円の衝突判定だったが、ここでは箱(box)の衝突判定
+- ここでは、その衝突判定に必要となる絶対値取得関数 `$abs` を作る

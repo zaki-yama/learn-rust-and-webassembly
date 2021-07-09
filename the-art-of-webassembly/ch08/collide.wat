@@ -39,4 +39,19 @@
       br_if $pixel_loop ;; break loop if all pixels set
     )
   )
+
+  ;; this function returns an absolute value when a value is passed in
+  (func $abs
+    (param $value i32)
+    (result i32)
+
+    (i32.lt_s (local.get $value) (i32.const 0)) ;; is $value negative?
+    if ;; if $value is negative subtract it from 0 to get the positive value
+      i32.const 0
+      local.get $value
+      i32.sub
+      return
+    end
+    local.get $value ;; return original value
+  )
 )
