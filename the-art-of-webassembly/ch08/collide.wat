@@ -87,4 +87,61 @@
 
     i32.store ;; store color in memory location
   )
+
+  ;; draw multi pixel object as a square given corrdinates $x, $y and color $c
+  (func $draw_obj
+    (param $x i32) ;; x position of the object
+    (param $y i32) ;; y position of the object
+    (param $c i32) ;; color of the object
+
+    (local $max_x i32)
+    (local $max_y i32)
+
+    (local $xi i32)
+    (local $yi i32)
+
+    local.get $x
+    local.tee $xi
+    global.get $obj_size
+    i32.add
+    local.set $max_x ;; @max_x = $x + $obj_size
+
+    local.get $y
+    local.tee $yi
+    global.get $obj_size
+    i32.add
+    local.set $max_y ;; @max_y = $y + $obj_size
+
+    (block $break (loop $draw_loop
+
+      local.get $xi
+      local.get $yi
+      local.get $c
+      call $set_pixel ;; set pixel at $xi, $yi to color $c
+
+      local.get $xi
+      i32.const 1
+      i32.add
+      local.tee $xi ;; $xi++
+
+      local.get $max_x
+      i32.ge_u ;; is $xi >= $max_x
+
+      if
+        local.get $x
+        local.set $xi ;; reset $xi to $x
+
+        local.get $yi
+        i32.const 1
+        i32.add
+        local.tee $yi ;; $yi++
+
+        local.get $max_y
+        i32.ge_u ;; is $yi >= $max_y
+
+        br_if $break
+      end
+      br $draw_loop
+    ))
+  )
 )

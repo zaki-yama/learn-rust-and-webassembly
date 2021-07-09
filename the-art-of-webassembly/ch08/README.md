@@ -16,6 +16,7 @@
     - [Clearing the Canvas](#clearing-the-canvas)
     - [Absolute Value Function](#absolute-value-function)
     - [Setting a Pixel Color](#setting-a-pixel-color)
+    - [Drawing the Object](#drawing-the-object)
 
 <!-- /TOC -->
 
@@ -62,3 +63,5 @@
   - wasmbook でも似たようなことやってたはず
 - 2 次元の canvas の座標と linear memory の index との対応関係。図解でわかりやすい
   - index = y \* (x 方向のピクセル数) + x
+
+### Drawing the Object
