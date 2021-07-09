@@ -54,4 +54,37 @@
     end
     local.get $value ;; return original value
   )
+
+  ;; this function sets a pixel at coordinates $x, $y to the color $c
+  (func $set_pixel
+    (param $x i32) ;; x coordinate
+    (param $y i32) ;; y coordinate
+    (param $c i32) ;; color value
+
+    ;; is $x > $cnvs_sizes
+    (i32.ge_u (local.get $x) (global.get $cnvs_size))
+    if ;; $x is outside the canvas bounds
+      return
+    end
+
+    ;; is $y > $cnvs_sizes
+    (i32.ge_u (local.get $y) (global.get $cnvs_size))
+    if ;; $y is outside the canvas bounds
+      return
+    end
+
+    local.get $y
+    global.get $cnvs_size
+    i32.mul
+
+    local.get $x
+    i32.add ;; $x + $y * $cnvs_size (get pixels into linear memory)
+
+    i32.const 4
+    i32.mul ;; multiply by 4 because each pixel is 4 bytes
+
+    local.get $c ;; load color value
+
+    i32.store ;; store color in memory location
+  )
 )

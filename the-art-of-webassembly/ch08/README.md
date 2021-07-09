@@ -15,6 +15,7 @@
     - [Imported Values](#imported-values)
     - [Clearing the Canvas](#clearing-the-canvas)
     - [Absolute Value Function](#absolute-value-function)
+    - [Setting a Pixel Color](#setting-a-pixel-color)
 
 <!-- /TOC -->
 
@@ -53,3 +54,11 @@
 
 - Chapter 6 では円の衝突判定だったが、ここでは箱(box)の衝突判定
 - ここでは、その衝突判定に必要となる絶対値取得関数 `$abs` を作る
+
+### Setting a Pixel Color
+
+- "That func- tion will need a bounds check because we’re writing to an area of linear memory set aside to represent the area of the canvas. Without this check, if we try to write to a memory location that isn’t on the canvas, the function will be writing to an area of linear memory that we might be using for some other purpose."
+  - canvas の境界からはみ出てないかチェックする必要がある。なぜなら canvas の領域を表す linear memory の領域に書き込まないと、他の目的で使用してる linear memory の領域に書き込んでしまうかもしれないので
+  - wasmbook でも似たようなことやってたはず
+- 2 次元の canvas の座標と linear memory の index との対応関係。図解でわかりやすい
+  - index = y \* (x 方向のピクセル数) + x
