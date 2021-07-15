@@ -144,4 +144,48 @@
       br $draw_loop
     ))
   )
+
+  ;; set the attribute of an object in linear memory using the object number,
+  ;; the attribute offset and a value used to set the attribute
+  (func $set_obj_attr
+    (param $obj_number i32)
+    (param $attr_offset i32)
+    (param $value i32)
+
+    local.get $obj_number
+    i32.const 16
+    i32.mul ;; 16 byte stride multiplied by the object number
+
+    global.get $obj_start ;; add the starting byte for the objects (base)
+    i32.add ;; ($obj_number * 16) + $obj_start
+
+    local.get $attr_offset ;; add the attribute offset to the address
+    i32.add ;; ($obj_number * 16) + $obj_start + $attr_offset
+
+    local.get $value
+
+    ;; store $value at location ($obj_number * 16) + $obj_start + $attr_offset
+    i32.store
+  )
+
+  ;; get the attribute of an object in linear memory using the object number,
+  ;; the attributes offset
+  (func $set_obj_attr
+    (param $obj_number i32)
+    (param $attr_offset i32)
+    (result i32)
+
+    local.get $obj_number
+    i32.const 16
+    i32.mul ;; 16 byte stride multiplied by the object number
+
+    global.get $obj_start ;; add the starting byte for the objects (base)
+    i32.add ;; ($obj_number * 16) + $obj_start
+
+    local.get $attr_offset ;; add the attribute offset to the address
+    i32.add ;; ($obj_number * 16) + $obj_start + $attr_offset
+
+    i32.load ;; load the pointer above
+    ;; returns the attribute
+  )
 )

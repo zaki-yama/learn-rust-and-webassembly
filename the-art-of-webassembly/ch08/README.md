@@ -17,6 +17,7 @@
     - [Absolute Value Function](#absolute-value-function)
     - [Setting a Pixel Color](#setting-a-pixel-color)
     - [Drawing the Object](#drawing-the-object)
+    - [Setting and Getting Object Attributes](#setting-and-getting-object-attributes)
 
 <!-- /TOC -->
 
@@ -58,10 +59,19 @@
 
 ### Setting a Pixel Color
 
-- "That func- tion will need a bounds check because we’re writing to an area of linear memory set aside to represent the area of the canvas. Without this check, if we try to write to a memory location that isn’t on the canvas, the function will be writing to an area of linear memory that we might be using for some other purpose."
+- "That function will need a bounds check because we’re writing to an area of linear memory set aside to represent the area of the canvas. Without this check, if we try to write to a memory location that isn’t on the canvas, the function will be writing to an area of linear memory that we might be using for some other purpose."
   - canvas の境界からはみ出てないかチェックする必要がある。なぜなら canvas の領域を表す linear memory の領域に書き込まないと、他の目的で使用してる linear memory の領域に書き込んでしまうかもしれないので
   - wasmbook でも似たようなことやってたはず
 - 2 次元の canvas の座標と linear memory の index との対応関係。図解でわかりやすい
   - index = y \* (x 方向のピクセル数) + x
 
 ### Drawing the Object
+
+- 正方形のオブジェクトを描画する処理
+
+### Setting and Getting Object Attributes
+
+- atribute を get/set するヘルパーの実装
+- attribute の get と set でアドレスの計算は共通化できる (DRY) けど、しばしばパフォーマンス低下につながることがあるのでやらない
+  - また、この後の Chapter でさらに DRY をやめることになる
+- 他のアセンブリ言語においては、マクロは DRY 原則とパフォーマンスを両立させるためのすばらしい方法だが、wat2wasm は現在マクロをサポートしていない
