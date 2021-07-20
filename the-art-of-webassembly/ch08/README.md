@@ -18,6 +18,7 @@
     - [Setting a Pixel Color](#setting-a-pixel-color)
     - [Drawing the Object](#drawing-the-object)
     - [Setting and Getting Object Attributes](#setting-and-getting-object-attributes)
+    - [The $main Function](#the-main-function)
 
 <!-- /TOC -->
 
@@ -75,3 +76,16 @@
 - attribute の get と set でアドレスの計算は共通化できる (DRY) けど、しばしばパフォーマンス低下につながることがあるのでやらない
   - また、この後の Chapter でさらに DRY をやめることになる
 - 他のアセンブリ言語においては、マクロは DRY 原則とパフォーマンスを両立させるためのすばらしい方法だが、wat2wasm は現在マクロをサポートしていない
+
+### The $main Function
+
+- 毎フレーム JS から呼ばれる処理
+- オブジェクトを velocity に基づいて動かし、衝突判定し、色を塗る
+- Defining Local Variables
+- The $move_loop
+  - フレームごとにオブジェクトを移動させる処理
+- Beginning of the Outer Loop, The Inner Loop
+  - 衝突判定の 2 重ループ
+  - 2 つのオブジェクトの x 座標の差 < オブジェクトのサイズ && 2 つのオブジェクトの y 座標の差 < オブジェクト なら衝突していることになる
+- Redrawing the Objects
+  - 再計算された座標と衝突フラグを元に再描画

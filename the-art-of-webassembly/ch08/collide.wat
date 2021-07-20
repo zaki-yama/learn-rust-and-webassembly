@@ -170,7 +170,7 @@
 
   ;; get the attribute of an object in linear memory using the object number,
   ;; the attributes offset
-  (func $set_obj_attr
+  (func $get_obj_attr
     (param $obj_number i32)
     (param $attr_offset i32)
     (result i32)
@@ -188,4 +188,189 @@
     i32.load ;; load the pointer above
     ;; returns the attribute
   )
+
+  ;; move and detect collisions between all of the objects in our app
+  (func $main (export "main")
+    (local $i i32) ;; outer loop index
+    (local $j i32) ;; inner loop index
+    (local $outer_ptr i32) ;; pointer to outer loop object
+    (local $inner_ptr i32) ;; pointer to inner loop object
+
+    (local $x1 i32) ;; outer loop object x coordinate
+    (local $x2 i32) ;; inner loop object x coordinate
+    (local $y1 i32) ;; outer loop object y coordinate
+    (local $y2 i32) ;; inner loop object y coordinate
+
+    (local $xdist i32) ;; distance between objects on x axis
+    (local $ydist i32) ;; distance between objects on y axis
+
+    (local $i_hit i32) ;; i object hit boolean flag
+    (local $xv i32) ;; x velocity
+    (local $yv i32) ;; y velocity
+
+    (call $clear_canvas)
+
+    (loop $move_loop
+      ;; get x attribute
+      (call $get_obj_attr (local.get $i) (global.get $x_offset))
+      local.set $x1
+
+      ;; get y attribute
+      (call $get_obj_attr (local.get $i) (global.get $y_offset))
+      local.set $y1
+
+      ;; get x velocity attribute
+      (call $get_obj_attr (local.get $i) (global.get $xv_offset))
+      local.set $xv
+
+      ;; get y velocity attribute
+      (call $get_obj_attr (local.get $i) (global.get $yv_offset))
+      local.set $yv
+
+      ;; add velocity to x and force it to stay in the canvas bounds
+      (i32.add (local.get $xv) (local.get $x1))
+      i32.const 0x1ff ;; 511 decimal
+      i32.and ;; clear high-order 23 bits
+      local.set $x1
+
+      ;; add velocity to y and force it to stay in the canvas bounds
+      (i32.add (local.get $yv) (local.get $y1))
+      i32.const 0x1ff ;; 511 decimal
+      i32.and ;; clear high-order 23 bits
+      local.set $y1
+
+      ;; set the x attribute in linear memory
+      (call $set_obj_attr
+        (local.get $i)
+        (global.get $x_offset)
+        (local.get $x1)
+      )
+
+      ;; set the y attribute in linear memory
+      (call $set_obj_attr
+        (local.get $i)
+        (global.get $y_offset)
+        (local.get $y1)
+      )
+
+      local.get $i
+      i32.const 1
+      i32.add
+      local.tee $i ;; increment $i
+
+      global.get $obj_cnt
+      i32.lt_u ;; $i < $obj_cnt
+
+      if ;; if $i < $obj_cnt branch back to top of $move_loop
+        br $move_loop
+      end
+    )
+
+    i32.const 0
+    local.set $i
+
+    (loop $outer_loop (block $outer_break
+      i32.const 0
+      local.tee $j ;; setting j to 0
+
+      ;; $i_hit is a boolean value. 0 for false, 1 for true
+      local.set $i_hit ;; setting i_hit to 0
+
+      ;; get x attribute for object $i
+      (call $get_obj_attr (local.get $i) (global.get $x_offset))
+      local.set $x1
+
+      ;; get y attribute for object $i
+      (call $get_obj_attr (local.get $i) (global.get $y_offset))
+      local.set $y1
+
+      (loop $inner_loop (block $inner_break
+        local.get $i
+        local.get $j
+        i32.eq
+        if ;; if $i == $j increment $j
+          local.get $j
+          i32.const 1
+          i32.add
+          local.set $j
+        end
+
+        local.get $j
+        global.get $obj_cnt
+        i32.ge_u
+        if ;; if $j >= $obj_count break from inner loop
+          br $inner_break
+        end
+
+        ;; get x attribute
+        (call $get_obj_attr (local.get $j) (global.get $x_offset))
+        local.set $x2
+
+        ;; distance between $x1 and $x2
+        (i32.sub (local.get $x1) (local.get $x2))
+
+        call $abs ;; distance is not negative so get the absolute value
+        local.tee $xdist
+
+        global.get $obj_size
+        i32.ge_u
+
+        if ;; if $xdist >= $obj_sizse object does not collide
+          local.get $j
+          i32.const 1
+          i32.add
+          local.set $j
+
+          br $inner_loop ;; increment $j and jump to beginning of inner loop
+        end
+
+        ;; get y attribute
+        (call $get_obj_attr (local.get $j) (global.get $y_offset))
+        local.set $y2
+
+        (i32.sub (local.get $y1) (local.get $y2))
+        call $abs
+        local.tee $ydist
+
+        global.get $obj_size
+        i32.ge_u
+
+        if
+          local.get $j
+          i32.const 1
+          i32.add
+          local.set $j
+
+          br $inner_loop
+        end
+
+        i32.const 1
+        local.set $i_hit
+        ;; exit the loop if there is a collision
+      )) ;; end of inner loop
+
+      local.get $i_hit
+      i32.const 0
+      i32.eq
+      if ;; if $i_hit == 0 (no hit)
+        (call $draw_obj
+          (local.get $x1) (local.get $y1) (global.get $no_hit_color))
+      else ;; if $i_hit == 1 (hit)
+        (call $draw_obj
+          (local.get $x1) (local.get $y1) (global.get $hit_color))
+      end
+
+      local.get $i
+      i32.const 1
+      i32.add
+      local.tee $i ;; increment $i
+
+      global.get $obj_cnt
+      i32.lt_u
+      if ;; if $i < $obj_cnt jump to top of the outer loop
+        br $outer_loop
+      end
+    )) ;; end of outer loop
+  ) ;; end of function
+
 )
