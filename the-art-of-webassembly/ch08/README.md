@@ -5,20 +5,20 @@
 
 <!-- TOC -->
 
-- [Chapter 8 Working with the Canvas](#chapter-8-working-with-the-canvas)
-  - [Rendering to the Canvas](#rendering-to-the-canvas)
-    - [Defining JavaScript Constants in HTML](#defining-javascript-constants-in-html)
-    - [Creating Random Objects](#creating-random-objects)
-    - [Bitmap Image Data](#bitmap-image-data)
-    - [The requestAnimationFrame Function](#the-requestanimationframe-function)
-  - [The WAT Module](#the-wat-module)
-    - [Imported Values](#imported-values)
-    - [Clearing the Canvas](#clearing-the-canvas)
-    - [Absolute Value Function](#absolute-value-function)
-    - [Setting a Pixel Color](#setting-a-pixel-color)
-    - [Drawing the Object](#drawing-the-object)
-    - [Setting and Getting Object Attributes](#setting-and-getting-object-attributes)
-    - [The $main Function](#the-main-function)
+- [Rendering to the Canvas](#rendering-to-the-canvas)
+  - [Defining JavaScript Constants in HTML](#defining-javascript-constants-in-html)
+  - [Creating Random Objects](#creating-random-objects)
+  - [Bitmap Image Data](#bitmap-image-data)
+  - [The requestAnimationFrame Function](#the-requestanimationframe-function)
+- [The WAT Module](#the-wat-module)
+  - [Imported Values](#imported-values)
+  - [Clearing the Canvas](#clearing-the-canvas)
+  - [Absolute Value Function](#absolute-value-function)
+  - [Setting a Pixel Color](#setting-a-pixel-color)
+  - [Drawing the Object](#drawing-the-object)
+  - [Setting and Getting Object Attributes](#setting-and-getting-object-attributes)
+  - [The $main Function](#the-main-function)
+- [Summary](#summary)
 
 <!-- /TOC -->
 
@@ -89,3 +89,13 @@
   - 2 つのオブジェクトの x 座標の差 < オブジェクトのサイズ && 2 つのオブジェクトの y 座標の差 < オブジェクト なら衝突していることになる
 - Redrawing the Objects
   - 再計算された座標と衝突フラグを元に再描画
+
+## Summary
+
+- HTML Canvas とのやり取り方法を見てきた
+- いつ WebAssembly を使うのがベストで、いつ JavaScript がより良い選択肢なのか理解できたはずだ
+- 今回の collider app では JS 側に定義した定数をたくさん使ってたので、Wasm 側をリコンパイルせずにパラメータをいろいろいじって遊べる
+- Wasm 側での乱数生成はチャレンジング
+- bitmap 画像データと、Wasm でリニアメモリ内に画像データを生成する方法を学んだ
+  - JS 側はフレームごとに `requestAnimationFrame` を呼んだ
+- アプリを高速化するためには多くの時間は使わなかった。次の Chapter でパフォーマンスチューニングをしていく
