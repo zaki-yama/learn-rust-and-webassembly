@@ -4,6 +4,12 @@
 
 - [Using a Profiler](#using-a-profiler)
   - [Chrome Profiler](#chrome-profiler)
+  - [Firefox Profiler](#firefox-profiler)
+- [wasm-opt](#wasm-opt)
+  - [Running wasm-opt](#running-wasm-opt)
+  - [Looking at Optimized WAT Code](#looking-at-optimized-wat-code)
+- [Strategies for Improving Performance](#strategies-for-improving-performance)
+  - [Inlining Functions](#inlining-functions)
 
 <!-- /TOC -->
 
@@ -41,3 +47,36 @@
     - それらの実行時間の total time
     - Self Time (関数からさらに呼ばれた関数の実行時間を除外した、その関数自身の実行時間)
   - 🤔 "It’s a bit disappointing that Chrome doesn’t indicate which function it calls inside the WebAssembly module" と書いてるけど、自分の環境だと `wasm-function[4]` みたいな表示だった & Sources タブに飛んでだいたいどの関数かあたりつけることはできた
+
+### Firefox Profiler
+
+skip
+
+## wasm-opt
+
+- `wasm-opt`: `wat-wasm` か Binaryen.js をインストールすると使える CLI
+
+### Running wasm-opt
+
+- ダウンロードサイズとパフォーマンスのどちらにフォーカスするかを optimizer に伝えるためにフラグを使う
+- フラグは、Emscripten や AssemblyScript といった、Binaryen を使ったツールチェインでも同じ
+- Optimizing for Download Size
+  - `-Oz` と `-Os`: `-Oz` の方が生成される WebAssembly ファイルのサイズは小さいが、実行に時間がかかる
+    - 大きいプロジェクトとかだと `-Os` を使う選択肢がある
+- Optimizing for Execution Time
+  - ゲームを作っている場合、ダウンロードタイムより fps の向上の方に関心があるだろう
+  - `-O1, -O2, -O3`
+    - 数字が大きくなるにつれ最適化のレベルが上がるが実行時間も長くなる
+
+### Looking at Optimized WAT Code
+
+- `wasm2wat` で最適化済みの .wasm ファイルを WAT に変換して中身を見てみる
+- 最適化の例
+  - 関数名や変数名をなくす
+  - 関数の数を減らす（インライン化）
+  - 関数内の変数の数を減らす
+  - 2^n との掛け算はビットシフトに変える
+
+## Strategies for Improving Performance
+
+### Inlining Functions
