@@ -9,6 +9,7 @@
   - [Running wasm-opt](#running-wasm-opt)
   - [Looking at Optimized WAT Code](#looking-at-optimized-wat-code)
 - [Strategies for Improving Performance](#strategies-for-improving-performance)
+- [Comparing the Collision Detection App with JavaScript](#comparing-the-collision-detection-app-with-javascript)
 
 <!-- /TOC -->
 
@@ -89,3 +90,8 @@ skip
   - 定数をひとまとめにする
 - DCE
   - Dead Code Elimination
+
+## Comparing the Collision Detection App with JavaScript
+
+- Chapter 8 で作った衝突判定アプリの JS 版を作ってパフォーマンス比較してみよう
+- 🤔 Wasm 版と比べて width, height が 1024 なのはなんでだろ？
