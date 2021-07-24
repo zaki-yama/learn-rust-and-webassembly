@@ -9,7 +9,6 @@
   - [Running wasm-opt](#running-wasm-opt)
   - [Looking at Optimized WAT Code](#looking-at-optimized-wat-code)
 - [Strategies for Improving Performance](#strategies-for-improving-performance)
-  - [Inlining Functions](#inlining-functions)
 
 <!-- /TOC -->
 
@@ -79,4 +78,14 @@ skip
 
 ## Strategies for Improving Performance
 
-### Inlining Functions
+- Inlining Functions
+  - サンプルコード: inline.wat
+  - 🤔 `wasm-opt` かけると `(type` が登場するのなんでだろ？
+    - `(type` 自体は p61 に登場
+      > The last expression is a `type` expression which defines the signature of the functions in the table. I have to provide this `$returns_i32` type as a static parameter to `call_indirect`
+- Multiply and Divide vs. Shift
+  - サンプルコード: pow2_mul.wat
+- Combining Constants
+  - 定数をひとまとめにする
+- DCE
+  - Dead Code Elimination
