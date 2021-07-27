@@ -13,6 +13,8 @@
 - [Hand Optimizing WAT](#hand-optimizing-wat)
 - [Logging Performance](#logging-performance)
 - [More Sophisticated Testing with benchmark.js](#more-sophisticated-testing-with-benchmarkjs)
+- [Comparing WebAssembly and JavaScript with `--print-bytecode`](#comparing-webassembly-and-javascript-with---print-bytecode)
+- [Summary](#summary)
 
 <!-- /TOC -->
 
@@ -122,3 +124,26 @@ skip
   - pow2_mul_div_nor: mul と div をビットシフトにしたやつ
   - pow2_opt: wasm_opt が生成したやつ
 - 面白いことに、結果は一番悪いのが wasm_opt が生成したやつだった
+
+## Comparing WebAssembly and JavaScript with `--print-bytecode`
+
+- V8 は JS を IR bytecode (アセンブリ言語や WAT に似ている)にコンパイルする
+- IR はレジスタやアキュムレータを使うが、特定のマシン固有ではない
+- この IR を使って、JIT コンパイラを実行した後の JS コードと Wasm のコードを比較できる
+- `$ node --print-bytecode --print-bytecode-filter=bytecode_test ch09/print_bytecode.js`
+- "Instead of a stack machine, the bytecode that the V8 engine generated is for a virtual register machine with an accumulator register"
+  - スタックマシンの代わりに、V8 が生成するバイトコードはアキュムレータレジスタを持った仮想レジスタマシン用である
+- "Accumulator machines have one general-purpose register where the accumulator does all of the math instead of doing it in the other registers."
+- opCodes の例
+  - `a` はアキュムレータ、 `r` はレジスタを指す
+  - `LdaZero`: loads (`Ld`) the accumulator (`a`) with 0 (`Zero`)
+  - `Star r0`: stores (`St`) the value in the accumulator (`a`) into a register (`r`) and then passes in `r0` to define that register
+- レジスタの値を直接セットすることはできないので、一旦アキュムレータに load した後にレジスタに移すということが必要になる
+
+## Summary
+
+- ブラウザの Profiler を使ったパフォーマンス測定(Summary, JS Heap Memory, fps)
+- Binaryen.js のインストール、 `wasm-opt` を使った最適化
+- WebAssembly のパフォーマンスを最適化するためのいくつかの戦略
+- JS 版とのパフォーマンス比較、benchmark.js を使ったパフォーマンス測定
+- V8 が生成するバイトコード (IR bytecode) の読み方
