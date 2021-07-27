@@ -10,6 +10,7 @@
   - [Looking at Optimized WAT Code](#looking-at-optimized-wat-code)
 - [Strategies for Improving Performance](#strategies-for-improving-performance)
 - [Comparing the Collision Detection App with JavaScript](#comparing-the-collision-detection-app-with-javascript)
+- [Hand Optimizing WAT](#hand-optimizing-wat)
 
 <!-- /TOC -->
 
@@ -86,6 +87,7 @@ skip
       > The last expression is a `type` expression which defines the signature of the functions in the table. I have to provide this `$returns_i32` type as a static parameter to `call_indirect`
 - Multiply and Divide vs. Shift
   - サンプルコード: pow2_mul.wat
+  - 2 の階乗の掛け算をビットシフトに変更する
 - Combining Constants
   - 定数をひとまとめにする
 - DCE
@@ -95,3 +97,7 @@ skip
 
 - Chapter 8 で作った衝突判定アプリの JS 版を作ってパフォーマンス比較してみよう
 - 🤔 Wasm 版と比べて width, height が 1024 なのはなんでだろ？
+
+## Hand Optimizing WAT
+
+- 手作業でアプリの最適化をやったらだいぶ高速化したよ、実際のコードは https://wasmbook.com/collide.html とか https://wasmbook.com/collide.wat 見てね、とだけ
