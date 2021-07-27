@@ -12,6 +12,7 @@
 - [Comparing the Collision Detection App with JavaScript](#comparing-the-collision-detection-app-with-javascript)
 - [Hand Optimizing WAT](#hand-optimizing-wat)
 - [Logging Performance](#logging-performance)
+- [More Sophisticated Testing with benchmark.js](#more-sophisticated-testing-with-benchmarkjs)
 
 <!-- /TOC -->
 
@@ -110,3 +111,14 @@ skip
 - というわけでオーバーヘッドがどの程度なのかサンプルコードを書いてみる( mod_and.wat )
   - 🤔 似たようなこと以前の章でやらなかったっけ？
 - オーバーヘッドを減らすため、ループを Wasm 内でやるようにする (mod_and_loop.wat)
+
+## More Sophisticated Testing with benchmark.js
+
+- benchmark.js (https://github.com/bestiejs/benchmark.js) を使ったパフォーマンス測定方法
+- "wasm-opt" の節でやった pow2_mul.wat の実装方法を何パターンか用意して benchmark.js 使ってパフォーマンス測定
+  - pow2: オリジナルのやつ
+  - pow2_reverse: div と mul の順序を逆にしたやつ
+  - pow2_mul_div_shift: mul と div を順序を逆 & ビットシフトにしたやつ
+  - pow2_mul_div_nor: mul と div をビットシフトにしたやつ
+  - pow2_opt: wasm_opt が生成したやつ
+- 面白いことに、結果は一番悪いのが wasm_opt が生成したやつだった
