@@ -11,6 +11,7 @@
 - [Strategies for Improving Performance](#strategies-for-improving-performance)
 - [Comparing the Collision Detection App with JavaScript](#comparing-the-collision-detection-app-with-javascript)
 - [Hand Optimizing WAT](#hand-optimizing-wat)
+- [Logging Performance](#logging-performance)
 
 <!-- /TOC -->
 
@@ -101,3 +102,11 @@ skip
 ## Hand Optimizing WAT
 
 - 手作業でアプリの最適化をやったらだいぶ高速化したよ、実際のコードは https://wasmbook.com/collide.html とか https://wasmbook.com/collide.wat 見てね、とだけ
+
+## Logging Performance
+
+- シンプルな計測方法は JS の`Date` と `console.log` 使う方法
+- ただし、Wasm から JS の関数は直接呼び出せないので渡してあげる必要があり、その分のオーバーヘッドがある
+- というわけでオーバーヘッドがどの程度なのかサンプルコードを書いてみる( mod_and.wat )
+  - 🤔 似たようなこと以前の章でやらなかったっけ？
+- オーバーヘッドを減らすため、ループを Wasm 内でやるようにする (mod_and_loop.wat)
