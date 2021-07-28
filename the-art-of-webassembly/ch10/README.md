@@ -14,3 +14,13 @@
 
 - WAT の要所要所で console.log する
 - 識別しやすいように message id という名の index をログ出力する箇所に連番ふっていく、というかなり泥臭いデバッグ手法
+
+## Using Alerts
+
+- 前節のロギング用関数 (`log_f64`) の console.log を alert に変えるだけ
+
+## Stack Trace
+
+Chrome (実際には Edge) の Dev Tools、Wasm の stack trace は本に書かれてる当時よりは読みやすくなってるっぽい。
+
+![](./stack-trace.png)
