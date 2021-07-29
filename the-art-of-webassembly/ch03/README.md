@@ -1,3 +1,23 @@
+# Chapter 3 Functions and Tables
+
+この Chapter で学ぶこと
+
+- WebAssembly の関数について学ぶ
+  - いつ、どのように JS や他の WebAssembly モジュールから関数を import するのか
+  - どのように WebAssembly の関数を export するのか
+- table について
+
+<!-- TOC -->
+
+- [When to Call Functions from WAT](#when-to-call-functions-from-wat)
+- [Writing an `is_prime` Function](#writing-an-is_prime-function)
+  - [Passing Parameters](#passing-parameters)
+- [Declaring an Imported Function](#declaring-an-imported-function)
+  - [Performance Implications of External Function Calls](#performance-implications-of-external-function-calls)
+  - [Function Tables](#function-tables)
+
+<!-- /TOC -->
+
 ## When to Call Functions from WAT
 
 - `(export)`
@@ -9,14 +29,19 @@
 
 ## Writing an `is_prime` Function
 
-###
+### Passing Parameters
 
 - `local.tee`: The local.tee command is like the local.set command in that it sets the value of the variable you pass to it to the value on top of the stack
+
+## Declaring an Imported Function
 
 ### Performance Implications of External Function Calls
 
 - "When you call a JavaScript function
   in WAT, you lose some cycles to overhead. This number isn’t extremely large, but if you execute an external JavaScript function in a loop that iterates 4,000,000 times, it can add up."
+- 2 つのベンチマーク比較
+  1. 内部で Wasm の関数を 4_000_000 回呼び出し
+  2. 内部で JS から import した関数を 4_000_000 回呼び出し
 
 ### Function Tables
 
