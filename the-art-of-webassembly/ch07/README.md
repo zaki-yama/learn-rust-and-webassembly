@@ -2,6 +2,12 @@
 
 > This chapter will help you understand how WebAssembly interacts with the DOM through JavaScript.
 
+- `add_message.wat`
+  - 2 つの数値を足した結果を DOM に表示する。WebAssembly 側からは直接 DOM 操作できないので、DOM を書き換える JS 側の関数を import して使う
+- `hex_and_binary.wat`
+  - 画面から入力された数値を 16 進数と 2 進数に変換して画面に表示する
+  - HTML タグも含めた文字列を WebAssembly 側で linear memory に格納して、JS 側では決まったアドレスから読み込むことで文字列を取得する
+
 ## The DOM
 
 一般的に、Web アプリケーションの WebAssembly 部分は、数値データの処理に焦点を当てるべきだが、DOM ではデータ処理のほとんどが文字列操作になるだろう。WebAssembly 内での文字列操作のパフォーマンスは、そのタスクに使用するライブラリに完全に依存する。このような理由から、DOM の重い作業は通常、アプリケーションの JavaScript 部分に留めておくのがベスト。

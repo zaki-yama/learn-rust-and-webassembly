@@ -31,6 +31,9 @@ const memory = new WebAssembly.Memory({ initial: 1 });
 
 #### Pointers
 
+- `i32.store <address> <value>` で linear memory 内の指定したアドレスに値をセットする
+- `i32.load <address>` で値を取り出す
+
 ## JavaScript Memory Object
 
 - memory は 0 で初期化されるぽい

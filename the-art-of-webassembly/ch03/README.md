@@ -48,7 +48,7 @@
 - "Currently, tables only support the anyfunc type (anyfunc is a generic WebAssembly function type), but in the future they might support JavaScript objects and DOM elements as well."
 - "Unlike import objects, JavaScript and WebAssembly can dynamically change tables at runtime."
 - function table 経由での関数呼び出しは indirect なコールになるためパフォーマンスコストがある
-- "However, you cannot add a JavaScript func- tion to a function table from within JavaScript. There is a WebAssembly.Table function set that allows you to set functions in a table, only with a function defined in a WebAssembly module. We can work around this restriction by importing the JavaScript function into a WebAssembly module and adding it to the table there."
+- "However, you cannot add a JavaScript function to a function table from within JavaScript. There is a WebAssembly.Table function set that allows you to set functions in a table, only with a function defined in a WebAssembly module. We can work around this restriction by importing the JavaScript function into a WebAssembly module and adding it to the table there."
   - table_export.wat で一度 import して table にセットしてるのはこれが理由
 
 ```
