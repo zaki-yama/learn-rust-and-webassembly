@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Stack Trace</h1>
+    <script>
+      const importObject = {
+        js: {
+          log_stack_trace: function (level) {
+            console.trace(`level=${level}`);
+          },
+        },
+      };
+
+      (async () => {
+        const obj = await WebAssembly.instantiateStreaming(
+          fetch("stack_trace.wasm"),
+          importObject
+        );
+        obj.instance.exports.call_stack_trace();
+      })();
+    </script>
+  </body>
+</html>
