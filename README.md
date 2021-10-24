@@ -20,6 +20,8 @@ Rust & WebAssembly 学習用リポジトリ
   - ステップバイステップでブラウザのレンダリングエンジン作る
   - repo: https://github.com/zaki-yama-labs/rust-toy-browser-engine
   - blog: [「Let's build a browser engine!」を読んでRustで簡易レンダリングエンジンを作った - dackdive's blog](https://dackdive.hateblo.jp/entry/2021/02/23/113522)
+- [Zero To Production in Rust](https://www.lpalmieri.com/posts/2020-05-24-zero-to-production-0-foreword/)
+  - ref. [『Zero To Production In Rust』を読んでいる](https://r7kamura.com/articles/2021-10-21-zero-to-production-in-rust)
 - [Rust Design Patterns](https://rust-unofficial.github.io/patterns/)
 - [Writing an OS in Rust](https://os.phil-opp.com/)
   - RustでOSを作るチュートリアル
