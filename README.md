@@ -64,5 +64,5 @@ Rust & WebAssembly 学習用リポジトリ
 - [Rustで始めるネットワークプログラミング](https://www.amazon.co.jp/exec/obidos/ASIN/B07SW2GXVF/zakiyama08-22/)
 - [Manning | WebAssembly in Action](https://www.manning.com/books/webassembly-in-action?gclid=CjwKCAjw7J6EBhBDEiwA5UUM2jlkdG6NaXZpwa6AxzrZwAVLRQI-Gz3KSLI4FthCOpC-HZlUshhaZBoC324QAvD_BwE)
   - 2019年11月
-- [The Art of WebAssembly | No Starch Press](https://nostarch.com/art-webassembly)
+- ✅ [The Art of WebAssembly | No Starch Press](https://nostarch.com/art-webassembly)
   - 2021年6月
