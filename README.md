@@ -15,6 +15,8 @@ Rust & WebAssembly 学習用リポジトリ
 - 🇯🇵 [Tour of Rust](https://tourofrust.com/) ([日本語](https://tourofrust.com/00_ja.html))
   - オンラインで直接コードを編集・動かしながら学べる
   - 日本語訳は一部のみ
+- [Rust入門](https://zenn.dev/mebiusbox/books/22d4c1ed9b0003)
+- [RustCoder ―― AtCoder と Rust で始める競技プログラミング入門](https://zenn.dev/toga/books/rust-atcoder)
 - ✅ [Rustで簡易ウェブクローラを作る by zenn](https://zenn.dev/shotaro_tsuji/books/32df27b4cc54df4fa7a5)
 - ✅ [Let's build a browser engine! Part 1: Getting started](https://limpet.net/mbrubeck/2014/08/08/toy-layout-engine-1.html)
   - ステップバイステップでブラウザのレンダリングエンジン作る
@@ -41,7 +43,6 @@ Rust & WebAssembly 学習用リポジトリ
   - チュートリアル系がまとまってる
 - [rustviz/rustviz: Interactively Visualizing Ownership and Borrowing](https://github.com/rustviz/rustviz)
   - 所有権とライフタイムについての本
-- 🇯🇵 [Rust入門](https://zenn.dev/mebiusbox/books/22d4c1ed9b0003)
 
 ### WebAssembly (WASM)
 
