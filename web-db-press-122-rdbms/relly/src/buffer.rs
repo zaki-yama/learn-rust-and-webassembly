@@ -1,6 +1,7 @@
 use std::{
     cell::{Cell, RefCell},
     collections::HashMap,
+    io,
     ops::{Index, IndexMut},
     rc::Rc,
 };
@@ -47,17 +48,19 @@ impl BufferPool {
         let pool_size = self.size();
         let mut consecutive_pinned = 0;
 
+        // 1. バッファを巡回するループ
         let victim_id = loop {
             let next_victim_id = self.next_victim_id;
             let frame = &mut self[next_victim_id];
             if frame.usage_count == 0 {
                 break self.next_victim_id;
             }
-            // バッファが貸出中でない場合
             if Rc::get_mut(&mut frame.buffer).is_some() {
+                // 4. バッファが貸出中でない場合
                 frame.usage_count -= 1;
                 consecutive_pinned = 0;
             } else {
+                // 5. バッファが貸出中の場合
                 consecutive_pinned += 1;
                 if consecutive_pinned >= pool_size {
                     return None;
@@ -96,12 +99,16 @@ pub struct BufferPoolManager {
 
 impl BufferPoolManager {
     fn fetch_page(&mut self, page_id: PageId) -> Result<Rc<Buffer>, Error> {
+        // ページがバッファプールにある場合
         if let Some(&buffer_id) = self.page_table.get(&page_id) {
             let frame = &mut self.pool[buffer_id];
             frame.usage_count += 1;
             return Ok(frame.buffer.clone());
         }
 
+        // ページがバッファプールにない場合
+
+        // 1. 捨てるバッファ(= これから読み込むページの格納先となるバッファ)を決定する
         let buffer_id = self.pool.evict().ok_or(Error::NoFreeBuffer)?;
         let frame = &mut self.pool[buffer_id];
         let evict_page_id = frame.buffer.page_id;
