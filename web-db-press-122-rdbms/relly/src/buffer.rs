@@ -131,6 +131,7 @@ impl BufferPoolManager {
 
     pub fn fetch_page(&mut self, page_id: PageId) -> Result<Rc<Buffer>, Error> {
         // ページがバッファプールにある場合
+        dbg!(page_id);
         if let Some(&buffer_id) = self.page_table.get(&page_id) {
             let frame = &mut self.pool[buffer_id];
             frame.usage_count += 1;
@@ -184,5 +185,16 @@ impl BufferPoolManager {
         self.page_table.remove(&evict_page_id);
         self.page_table.insert(page_id, buffer_id);
         Ok(page)
+    }
+
+    pub fn flush(&mut self) -> Result<(), Error> {
+        for (&page_id, &buffer_id) in self.page_table.iter() {
+            let frame = &self.pool[buffer_id];
+            let mut page = frame.buffer.page.borrow_mut();
+            self.disk.write_page_data(page_id, page.as_mut());
+            frame.buffer.is_dirty.set(false);
+        }
+        self.disk.sync()?;
+        Ok(())
     }
 }

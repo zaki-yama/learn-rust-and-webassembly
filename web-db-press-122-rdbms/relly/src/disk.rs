@@ -101,6 +101,11 @@ impl DiskManager {
         // データを書き込む
         self.heap_file.write_all(data)
     }
+
+    pub fn sync(&mut self) -> io::Result<()> {
+        self.heap_file.flush()?;
+        self.heap_file.sync_all()
+    }
 }
 
 #[cfg(test)]
