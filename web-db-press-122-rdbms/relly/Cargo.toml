@@ -16,3 +16,4 @@ zerocopy = "0.3"
 [dev-dependencies]
 md-5 = "0.10.1"
 tempfile = "3"
+sha-1 = "0.10.0"
