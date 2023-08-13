@@ -8,8 +8,6 @@ use wasm_bindgen::convert::IntoWasmAbi;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
-use web_sys::console;
-
 #[derive(Deserialize)]
 struct Sheet {
     frames: HashMap<String, Cell>,
