@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::{
     browser,
-    engine::{self, Game, Rect, Renderer},
+    engine::{self, Game, KeyState, Rect, Renderer},
 };
 use anyhow::Result;
 use async_trait::async_trait;
@@ -23,7 +23,7 @@ impl Game for WalkTheDog {
         }))
     }
 
-    fn update(&mut self) {
+    fn update(&mut self, keystate: &KeyState) {
         // updateは1/60秒ごとに呼ばれる。
         // アニメーションのタイミングをおおよそあわせるには、3回更新されたら1度スプライトを変更するようにしたい。
         // Runアニメーションには8つのフレームがあるので、アニメーションが終わるのに24回のupdateが必要。
