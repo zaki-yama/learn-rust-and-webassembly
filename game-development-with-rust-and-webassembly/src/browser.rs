@@ -60,7 +60,7 @@ where
 pub async fn fetch_with_str(resource: &str) -> Result<JsValue> {
     JsFuture::from(window()?.fetch_with_str(resource))
         .await
-        .map_err(|err| anyhow!("error fetching {:?}", resource))
+        .map_err(|_err| anyhow!("error fetching {:?}", resource))
 }
 
 pub async fn fetch_json(json_path: &str) -> Result<JsValue> {

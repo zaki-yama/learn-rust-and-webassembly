@@ -1,4 +1,4 @@
-use std::{cell::RefCell, collections::HashMap, os::unix::process, rc::Rc};
+use std::{cell::RefCell, collections::HashMap, rc::Rc};
 
 use anyhow::{anyhow, Result};
 use async_trait::async_trait;
@@ -7,12 +7,12 @@ use futures::channel::{
     oneshot::channel,
 };
 use std::sync::Mutex;
-use wasm_bindgen::{convert::IntoWasmAbi, prelude::*};
+use wasm_bindgen::{prelude::*};
 use web_sys::{CanvasRenderingContext2d, HtmlImageElement};
 
 use crate::browser::{self, LoopClosure};
 
-pub async fn load_image(source: &str) -> Result<HtmlImageElement> {
+pub async fn load_image(_source: &str) -> Result<HtmlImageElement> {
     let image = browser::new_image()?;
 
     let (complete_tx, complete_rx) = channel::<Result<()>>();
@@ -195,4 +195,10 @@ impl KeyState {
     fn set_released(&mut self, code: &str) {
         self.pressed_keys.remove(code.into());
     }
+}
+
+#[derive(Clone, Copy)]
+pub struct Point {
+    pub x: i16,
+    pub y: i16,
 }

@@ -6,13 +6,13 @@ mod game;
 use anyhow::Result;
 use engine::GameLoop;
 use game::WalkTheDog;
-use std::rc::Rc;
-use std::sync::Mutex;
+
+
 
 use serde::Deserialize;
 use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
+
 
 #[derive(Deserialize)]
 struct Sheet {
@@ -44,7 +44,7 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 #[wasm_bindgen(start)]
 pub fn main_js() -> Result<(), JsValue> {
     console_error_panic_hook::set_once();
-    let context = browser::context().expect("Could not get browser context");
+    let _context = browser::context().expect("Could not get browser context");
 
     browser::spawn_local(async move {
         let game = WalkTheDog::new();
