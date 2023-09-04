@@ -6,11 +6,36 @@ use futures::channel::{
     mpsc::{unbounded, UnboundedReceiver},
     oneshot::channel,
 };
+use serde::Deserialize;
 use std::sync::Mutex;
-use wasm_bindgen::{prelude::*};
+use wasm_bindgen::prelude::*;
 use web_sys::{CanvasRenderingContext2d, HtmlImageElement};
 
 use crate::browser::{self, LoopClosure};
+
+#[derive(Deserialize, Clone)]
+pub struct SheetRect {
+    pub x: u16,
+    pub y: u16,
+    pub w: u16,
+    pub h: u16,
+}
+
+#[derive(Deserialize, Clone)]
+pub struct Cell {
+    pub frame: SheetRect,
+}
+
+#[derive(Deserialize, Clone)]
+pub struct Sheet {
+    pub frames: HashMap<String, Cell>,
+}
+
+#[derive(Clone, Copy)]
+pub struct Point {
+    pub x: i16,
+    pub y: i16,
+}
 
 pub async fn load_image(_source: &str) -> Result<HtmlImageElement> {
     let image = browser::new_image()?;
@@ -195,10 +220,4 @@ impl KeyState {
     fn set_released(&mut self, code: &str) {
         self.pressed_keys.remove(code.into());
     }
-}
-
-#[derive(Clone, Copy)]
-pub struct Point {
-    pub x: i16,
-    pub y: i16,
 }

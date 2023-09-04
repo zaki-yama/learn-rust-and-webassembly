@@ -7,12 +7,9 @@ use anyhow::Result;
 use engine::GameLoop;
 use game::WalkTheDog;
 
-
-
 use serde::Deserialize;
 use std::collections::HashMap;
 use wasm_bindgen::prelude::*;
-
 
 #[derive(Deserialize)]
 struct Sheet {
