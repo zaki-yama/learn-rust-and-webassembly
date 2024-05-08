@@ -12,9 +12,10 @@ Rust & WebAssembly 学習用リポジトリ
 - [公式] [Rustlings](https://github.com/rust-lang/rustlings/)
     - エクササイズ集
 - 🇯🇵  [公式] [Rust by Example](https://doc.rust-lang.org/stable/rust-by-example/) ([日本語](https://doc.rust-jp.rs/rust-by-example-ja/))
-- 🇯🇵 [Tour of Rust](https://tourofrust.com/) ([日本語](https://tourofrust.com/00_ja.html))
+- ✅ 🇯🇵 [Tour of Rust](https://tourofrust.com/) ([日本語](https://tourofrust.com/00_ja.html))
   - オンラインで直接コードを編集・動かしながら学べる
   - 日本語訳は一部のみ
+  - -> 感想: [Tour of Rustをやった - dackdive's blog](https://dackdive.hateblo.jp/entry/2023/09/15/090000)
 - [Rust入門](https://zenn.dev/mebiusbox/books/22d4c1ed9b0003)
 - [RustCoder ―― AtCoder と Rust で始める競技プログラミング入門](https://zenn.dev/toga/books/rust-atcoder)
 - ✅ [Rustで簡易ウェブクローラを作る by zenn](https://zenn.dev/shotaro_tsuji/books/32df27b4cc54df4fa7a5)
