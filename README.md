@@ -69,3 +69,4 @@ Rust & WebAssembly 学習用リポジトリ
   - 2019年11月
 - ✅ [The Art of WebAssembly | No Starch Press](https://nostarch.com/art-webassembly)
   - 2021年6月
+- [RustでWasm Runtimeを実装する](https://zenn.dev/skanehira/books/writing-wasm-runtime-in-rust) (2024/04/20)
